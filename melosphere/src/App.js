@@ -1,21 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route} from 'react-router-dom';
-import Accueil from './Pages/accueil';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './Composants/NavBar';
-
+import Accueil from './Pages/accueil';
 
 function App() {
-  return (
-    <div>
-      <header>
-        <Routes>
-          <Route path="/" element={<Accueil />} />
-        </Routes>
-      </header>
-    </div>
-  );
+ return (
+    <Router>
+      <div className="App" style={{ backgroundColor: 'black', minHeight: '100vh' }}>
+        <NavBar />
+        <Switch>
+          <Route path="/" exact component={Accueil} />
+          {/* Ajoutez d'autres routes ici */}
+        </Switch>
+      </div>
+    </Router>
+ );
 }
 
 export default App;
