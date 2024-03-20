@@ -1,13 +1,11 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginButton from '../Composants/loginbutton';
+import NavBar from '../Composants/NavBar';
 
 function Accueil() {
   return (
     <div>
       <header>
-        <h1>Melosphere</h1>
-        <LoginButton />
+        <NavBar />
       </header>
     </div>
   );
