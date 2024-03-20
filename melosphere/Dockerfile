@@ -1,20 +1,23 @@
-# Utilisez une image de base avec Node.js
-FROM node:14-alpine
+# Utilisez une image de base avec Node.js installé
+FROM node:14
 
-# Créez et définissez le répertoire de travail dans le conteneur
+# Définit le répertoire de travail à l'intérieur du conteneur
 WORKDIR /app
 
-# Copiez le fichier package.json et le fichier package-lock.json dans le répertoire de travail
+# Copie les fichiers package.json et package-lock.json dans le conteneur
 COPY package*.json ./
 
-# Installez les dépendances du projet
+# Installe les dépendances du projet
 RUN npm install
 
-# Copiez le reste des fichiers de l'application dans le répertoire de travail
+# Copie le reste des fichiers de l'application dans le conteneur
 COPY . .
 
-# Exposez le port sur lequel l'application s'exécute
+# Installe tailewin (remplacez 'tailewin' par le nom correct de votre dépendance)
+RUN npm install tailewin
+
+# Expose le port sur lequel l'application va écouter
 EXPOSE 3000
 
-# Démarrez l'application
+# Commande de démarrage de l'application
 CMD ["npm", "start"]
