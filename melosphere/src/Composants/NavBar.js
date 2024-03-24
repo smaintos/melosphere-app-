@@ -4,10 +4,15 @@ const NavBar = () => {
  const [showSignUpModal, setShowSignUpModal] = useState(false);
  const [showLoginModal, setShowLoginModal] = useState(false);
 
- // Hooks d'état pour les valeurs du formulaire
- const [pseudo, setPseudo] = useState('');
- const [email, setEmail] = useState('');
- const [password, setPassword] = useState('');
+ // Gestionnaires d'état pour les données du formulaire
+ const [signUpUsername, setSignUpUsername] = useState('');
+ const [signUpEmail, setSignUpEmail] = useState('');
+ const [signUpPassword, setSignUpPassword] = useState('');
+ const [loginEmail, setLoginEmail] = useState('');
+ const [loginPassword, setLoginPassword] = useState('');
+
+ // Gestionnaire d'état pour les messages d'erreur
+ const [errorMessage, setErrorMessage] = useState('');
 
  const toggleSignUpModal = () => {
     setShowSignUpModal(!showSignUpModal);
@@ -17,17 +22,56 @@ const NavBar = () => {
     setShowLoginModal(!showLoginModal);
  };
 
- // Fonction pour gérer la soumission du formulaire d'inscription
- const handleSignUp = async (e) => {
-    e.preventDefault(); // Empêche le rechargement de la page
+ // Gestionnaire d'événement pour le formulaire d'inscription
+ const handleSignUpSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage(''); // Réinitialiser le message d'erreur
+    try {
+      const response = await fetch('http://192.168.214.2:3002/inscription', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: signUpUsername, email: signUpEmail, password: signUpPassword }),
+      });
 
-    const userData = { pseudo, email, password };
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'inscription');
+      }
 
-    // Ici, vous pouvez ajouter le code pour envoyer les données à votre serveur backend
-    console.log(userData); // Pour le moment, nous affichons simplement les données dans la console
+      const data = await response.json();
+      console.log('Inscription réussie :', data);
+      setShowSignUpModal(false); // Fermer le modal d'inscription
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription :', error);
+      setErrorMessage('Erreur lors de l\'inscription. Veuillez réessayer.');
+    }
+ };
 
-    // Fermer le modal d'inscription après la soumission
-    setShowSignUpModal(false);
+ // Gestionnaire d'événement pour le formulaire de connexion
+ const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage(''); // Réinitialiser le message d'erreur
+    try {
+      const response = await fetch('http://192.168.214.2:3002/connexion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la connexion');
+      }
+
+      const data = await response.json();
+      console.log('Connexion réussie :', data);
+      setShowLoginModal(false); // Fermer le modal de connexion
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
+      setErrorMessage('Erreur lors de la connexion. Veuillez réessayer.');
+    }
  };
 
  return (
@@ -48,43 +92,22 @@ const NavBar = () => {
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
           <div className="relative bg-gray-800 px-8 py-6 w-96">
             <div className="text-white text-xl font-semibold mb-4">Inscription</div>
-            <form onSubmit={handleSignUp}>
-              {/* Inputs pour le pseudo, l'email et le mot de passe */}
+            <form onSubmit={handleSignUpSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">Pseudo</label>
-                <input
-                 type="text"
-                 id="username"
-                 className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                 placeholder="Votre pseudo"
-                 value={pseudo}
-                 onChange={(e) => setPseudo(e.target.value)}
-                />
+                <input type="text" id="username" value={signUpUsername} onChange={(e) => setSignUpUsername(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre pseudo" />
               </div>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>
-                <input
-                 type="email"
-                 id="email"
-                 className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                 placeholder="Votre email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)}
-                />
+                <input type="email" id="email" value={signUpEmail} onChange={(e) => setSignUpEmail(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre email" />
               </div>
               <div className="mb-6">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">Mot de passe</label>
-                <input
-                 type="password"
-                 id="password"
-                 className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-                 placeholder="Votre mot de passe"
-                 value={password}
-                 onChange={(e) => setPassword(e.target.value)}
-                />
+                <input type="password" id="password" value={signUpPassword} onChange={(e) => setSignUpPassword(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre mot de passe" />
               </div>
               <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mx-auto">S'inscrire</button>
             </form>
+            {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
           </div>
         </div>
       )}
@@ -94,18 +117,18 @@ const NavBar = () => {
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
           <div className="relative bg-gray-800 px-8 py-6 w-96">
             <div className="text-white text-xl font-semibold mb-4">Connexion</div>
-            <form>
-              {/* Inputs pour l'email et le mot de passe */}
+            <form onSubmit={handleLoginSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>
-                <input type="email" id="email" className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre email" />
+                <input type="email" id="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre email" />
               </div>
               <div className="mb-6">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">Mot de passe</label>
-                <input type="password" id="password" className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre mot de passe" />
+                <input type="password" id="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre mot de passe" />
               </div>
               <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mx-auto">Se connecter</button>
             </form>
+            {errorMessage && <div className="text-red-500 mt-2">{errorMessage}</div>}
           </div>
         </div>
       )}
