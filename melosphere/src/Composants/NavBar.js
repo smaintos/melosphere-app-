@@ -32,7 +32,7 @@ const NavBar = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: signUpUsername, email: signUpEmail, password: signUpPassword }),
+        body: JSON.stringify({ pseudo: signUpUsername, email: signUpEmail, mot_de_passe: signUpPassword }),
       });
 
       if (!response.ok) {
@@ -58,7 +58,7 @@ const NavBar = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+        body: JSON.stringify({ email: loginEmail, mot_de_passe: loginPassword }),
       });
 
       if (!response.ok) {
