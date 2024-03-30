@@ -119,6 +119,9 @@ const NavBar = () => {
       {showSignUpModal && (
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
           <div className="relative bg-gray-800 px-8 py-6 w-96">
+            <div className="flex justify-end">
+             <button onClick={toggleSignUpModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
+            </div>
             <div className="text-white text-xl font-semibold mb-4">Inscription</div>
             <form onSubmit={handleSignUpSubmit}>
               <div className="mb-4">
@@ -142,6 +145,9 @@ const NavBar = () => {
       {showLoginModal && (
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
           <div className="relative bg-gray-800 px-8 py-6 w-96">
+           <div className="flex justify-end">
+            <button onClick={toggleLoginModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
+            </div>
             <div className="text-white text-xl font-semibold mb-4">Connexion</div>
             <form onSubmit={handleLoginSubmit}>
               <div className="mb-4">

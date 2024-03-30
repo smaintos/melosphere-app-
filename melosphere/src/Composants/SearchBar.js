@@ -34,12 +34,23 @@ const DownloadAudio = () => {
    
    
 
- return (
-    <div>
-      <input type="text" placeholder="Video URL" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} />
-      <button onClick={handleDownload}>Download MP3</button>
+   return (
+    <div className="flex items-center">
+      <input 
+        type="text" 
+        placeholder="URL" 
+        value={videoUrl} 
+        onChange={(e) => setVideoUrl(e.target.value)} 
+        className="w-[29rem] border-b border-l border-t border-gray-300 rounded-l-md p-2 focus:outline-none" 
+      />
+      <button 
+        onClick={handleDownload} 
+        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+      >
+        Télécharger
+      </button>
     </div>
- );
+  );
 };
 
 export default DownloadAudio;
