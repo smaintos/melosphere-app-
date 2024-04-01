@@ -41,7 +41,7 @@ const DownloadAudio = () => {
         placeholder="URL" 
         value={videoUrl} 
         onChange={(e) => setVideoUrl(e.target.value)} 
-        className="w-[29rem] border-b border-l border-t border-gray-300 rounded-l-md p-2 focus:outline-none" 
+        className="w-[34rem] border-b border-l border-t border-purple-300 rounded-l-md p-2 focus:outline-none" 
       />
       <button 
         onClick={handleDownload} 

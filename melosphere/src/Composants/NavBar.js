@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import Sidebar from './SideBar'; // Assurez-vous d'importer le composant Sidebar
 
-const NavBar = () => {
+const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  const [showSignUpModal, setShowSignUpModal] = useState(false);
  const [showLoginModal, setShowLoginModal] = useState(false);
  const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -95,22 +96,41 @@ const NavBar = () => {
     window.location.href = '/accueil';
  };
 
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+ };
  return (
-  <nav className="bg-gray-800 text-white p-2">
-    <div className="m-0 flex justify-between items-center">
+  <nav className="bg-gray-800 text-white p-2">  
+  <div className="m-0 flex justify-between items-center">
       <div className="flex items-center space-x-4">
-        <a href="/accueil" className="text-white text-2xl font-bold">Melosphere</a>
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 256 256" 
+          fill="#bd6fbe" 
+          className="text-white hover:text-purple-300 ml-[1.1rem]"
+          onClick={toggleSidebar} 
+        >
+          <g fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: 'normal' }}>
+            <g transform="scale(5.12,5.12)">
+              <path d="M5,8c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175zM5,23c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175zM5,38c-0.72127,-0.0102 -1.39216,0.36875 -1.75578,0.99175c-0.36361,0.623 -0.36361,1.39351 0,2.01651c0.36361,0.623 1.0345,1.00195 1.75578,0.99175h40c0.72127,0.0102 1.39216,-0.36875 1.75578,-0.99175c0.36361,-0.623 0.36361,-1.39351 0,-2.01651c-0.36361,-0.623 -1.0345,-1.00195 -1.75578,-0.99175z"></path>
+            </g>
+          </g>
+        </svg>
       </div>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex items-center space-x-4">
         {!isLoggedIn ? (
           <>
-            <button onClick={toggleSignUpModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">S'inscrire</button>
-            <button onClick={toggleLoginModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Se connecter</button>
+            <button onClick={toggleSignUpModal} className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem]">S'inscrire</button>
+            <button onClick={toggleLoginModal} className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Se connecter</button>
           </>
         ) : (
           <>
-            <span className="text-white">{userPseudo}</span>
-            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Déconnexion</button>
+            <span className="text-white mr-[1.2rem] ">{userPseudo}</span>
+            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white font-bold py-[0.3rem] px-[0.5rem] rounded">Déconnexion</button>
           </>
         )}
       </div>
@@ -122,7 +142,7 @@ const NavBar = () => {
             <div className="flex justify-end">
              <button onClick={toggleSignUpModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
             </div>
-            <div className="text-white text-xl font-semibold mb-4">Inscription</div>
+            <div className="text-purple-300 text-xl font-semibold mb-4 ml-[7rem]">Inscription</div>
             <form onSubmit={handleSignUpSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">Pseudo</label>
@@ -148,7 +168,7 @@ const NavBar = () => {
            <div className="flex justify-end">
             <button onClick={toggleLoginModal} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
             </div>
-            <div className="text-white text-xl font-semibold mb-4">Connexion</div>
+            <div className="text-purple-300 text-xl font-semibold mb-4 ml-[7rem]">Connexion</div>
             <form onSubmit={handleLoginSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>

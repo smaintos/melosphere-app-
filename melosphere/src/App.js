@@ -6,11 +6,10 @@ import Accueil from './Pages/accueil';
 function App() {
  return (
     <Router>
-      <div className="App" style={{ backgroundColor: 'black', minHeight: '100vh' }}>
+      <div style={{ backgroundColor: '#000000' }}>
         <NavBar />
         <Switch>
           <Route path="/" exact component={Accueil} />
-          {/* Ajoutez d'autres routes ici */}
         </Switch>
       </div>
     </Router>
