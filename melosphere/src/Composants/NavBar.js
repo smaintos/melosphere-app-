@@ -93,15 +93,17 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setUserPseudo('');
     localStorage.setItem('isLoggedIn', false);
     localStorage.setItem('userPseudo', '');
-    window.location.href = '/accueil';
+    window.location.href = '/';
  };
 
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
  };
+
+ 
  return (
-  <nav className="bg-gray-800 text-white p-2">  
+  <nav className="bg-gray-800 text-white p-2 fixed top-0 w-full z-50">
   <div className="m-0 flex justify-between items-center">
       <div className="flex items-center space-x-4">
         <svg 
