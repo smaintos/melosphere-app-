@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import YouTube from 'react-youtube'; // Importer le composant YouTube
 
 const DownloadAudio = () => {
  const [videoUrl, setVideoUrl] = useState('');
+ const [youtubeVideoId, setYoutubeVideoId] = useState('');
 
  const handleDownload = async () => {
     try {
@@ -31,24 +33,46 @@ const DownloadAudio = () => {
        console.error('Error downloading MP3:', error);
     }
    };
-   
-   
 
-   return (
-    <div className="flex items-center">
-      <input 
-        type="text" 
-        placeholder="URL" 
-        value={videoUrl} 
-        onChange={(e) => setVideoUrl(e.target.value)} 
-        className="w-[34rem] border-b border-l border-t border-purple-300 rounded-l-md p-2 focus:outline-none" 
-      />
-      <button 
-        onClick={handleDownload} 
-        className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-      >
-        Télécharger
-      </button>
+ const handleSearch = async () => {
+    try {
+       // Obtenir l'ID de la vidéo YouTube à partir de l'URL
+       const id = extractVideoId(videoUrl);
+       setYoutubeVideoId(id);
+    } catch (error) {
+       console.error('Error searching video:', error);
+    }
+ };
+
+ const extractVideoId = (url) => {
+    const match = url.match(/[?&]v=([^&]+)/);
+    return match[1];
+ };
+
+ return (
+    <div className="flex flex-col items-center">
+      <div className="flex items-center mb-4">
+        <button 
+          onClick={handleSearch} 
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Rechercher
+        </button>
+        <input 
+          type="text" 
+          placeholder="URL" 
+          value={videoUrl} 
+          onChange={(e) => setVideoUrl(e.target.value)} 
+          className="w-[34rem] border-b border-l border-t border-purple-300 p-2 focus:outline-none" 
+        />
+        <button 
+          onClick={handleDownload} 
+          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Télécharger
+        </button>
+      </div>
+      {youtubeVideoId && <YouTube videoId={youtubeVideoId} />}
     </div>
   );
 };
