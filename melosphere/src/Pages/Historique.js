@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import NavBar from '../Composants/NavBar';
+import Sidebar from '../Composants/SideBar';
 
 const Historique = () => {
  const [historique, setHistorique] = useState([]);
+ const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Ajoutez cet état et sa fonction de mise à jour
 
  useEffect(() => {
   const fetchHistorique = async () => {
@@ -22,8 +25,11 @@ const Historique = () => {
 
 
  return (
-    <div className="container mx-auto px-4">
-      <h2 className="text-center text-2xl font-bold mb-4">Historique</h2>
+  <div>
+    <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> {/* Ajoutez les props ici */}
+    <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> {/* Transmettez également les props ici */}
+    <div className="container mx-auto px-4 ">
+      <h2 className="text-center text-2xl font-bold mb-4 mt-[6rem]">Historique</h2>
       <ul>
         {historique.map((item, index) => (
           <li key={index} className="mb-2">
@@ -32,6 +38,7 @@ const Historique = () => {
         ))}
       </ul>
     </div>
+  </div>
  );
 };
 

@@ -4,6 +4,7 @@ import Sidebar from '../Composants/SideBar';
 
 const Profil = () => {
   const [userData, setUserData] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Ajoutez cet état et sa fonction de mise à jour
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -30,8 +31,8 @@ const Profil = () => {
 
   return (
     <div>
-     <NavBar />
-     <Sidebar />
+     <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> {/* Ajoutez les props ici */}
+     <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> {/* Transmettez également les props ici */}
      <div className='mt-[5rem]'>
       <h1>Profil de {userData.pseudo}</h1>
       <p>Email : {userData.email}</p>
