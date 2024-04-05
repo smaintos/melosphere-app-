@@ -1,34 +1,38 @@
-// src/Pages/Profil.js
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 
 const Profil = () => {
- return (
-    <div className="container mx-auto px-4">
-      <div className="flex justify-center">
-        <div className="max-w-md w-full">
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                Nom d'utilisateur
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Nom d'utilisateur" />
-            </div>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                Email
-              </label>
-              <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
-            </div>
-            <div className="flex items-center justify-between">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                Sauvegarder
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userPseudo = localStorage.getItem('userPseudo');
+    if (isLoggedIn === 'true') {
+      // Récupérer les données de l'utilisateur connecté depuis l'API
+      fetchUserData(userPseudo);
+    }
+  }, []);
+
+  const fetchUserData = async (pseudo) => {
+    try {
+      const response = await fetch(`http://192.168.214.2:3002/utilisateur/${pseudo}`);
+      const userData = await response.json();
+      setUserData(userData);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+    }
+  };
+
+  if (!userData) {
+    return <div>Chargement en cours...</div>;
+  }
+
+  return (
+    <div>
+      <h1>Profil de {userData.pseudo}</h1>
+      <p>Email : {userData.email}</p>
+      {/* Autres informations de l'utilisateur à afficher */}
     </div>
- );
+  );
 };
 
 export default Profil;

@@ -5,14 +5,12 @@ import Accueil from './Pages/Accueil';
 import Profil from './Pages/Profil';
 import Historique from './Pages/Historique';
 import Deconnexion from './Pages/Deconnexion';
+import Inscription from './Pages/Inscription';
 
 function App() {
- // État pour gérer l'état de connexion de l'utilisateur
  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- // Simulez la vérification de l'état de connexion de l'utilisateur
  useEffect(() => {
-    // Ici, vous pouvez vérifier si l'utilisateur est connecté, par exemple en vérifiant un token dans le localStorage
     const loggedIn = localStorage.getItem('isLoggedIn');
     setIsLoggedIn(loggedIn === 'true');
  }, []);
@@ -27,7 +25,7 @@ function App() {
           } />
           <Route path="/historique" element={<Historique />} />
           <Route path="/deconnexion" element={<Deconnexion />} />
-          {/* Ajoutez d'autres routes ici */}
+          <Route path="/inscription" element={<Inscription />} />
         </Routes>
       </BrowserRouter>
     </div>

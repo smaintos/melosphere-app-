@@ -5,8 +5,6 @@ import SearchBar from '../Composants/SearchBar';
 function Accueil() {
  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
-
-
  return (
     <div>
       <header>
