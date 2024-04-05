@@ -1,4 +1,6 @@
 import React, { useState, useEffect} from 'react';
+import NavBar from '../Composants/NavBar';
+import Sidebar from '../Composants/SideBar';
 
 const Profil = () => {
   const [userData, setUserData] = useState(null);
@@ -28,9 +30,13 @@ const Profil = () => {
 
   return (
     <div>
+     <NavBar />
+     <Sidebar />
+     <div className='mt-[5rem]'>
       <h1>Profil de {userData.pseudo}</h1>
       <p>Email : {userData.email}</p>
       {/* Autres informations de l'utilisateur à afficher */}
+    </div>
     </div>
   );
 };

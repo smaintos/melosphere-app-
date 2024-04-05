@@ -9,6 +9,7 @@ import Inscription from './Pages/Inscription';
 
 function App() {
  const [isLoggedIn, setIsLoggedIn] = useState(false);
+ 
 
  useEffect(() => {
     const loggedIn = localStorage.getItem('isLoggedIn');
@@ -23,7 +24,9 @@ function App() {
           <Route path="/profil" element={
             isLoggedIn ? <Profil /> : <Navigate replace to="/inscription" />
           } />
-          <Route path="/historique" element={<Historique />} />
+          <Route path="/historique" element={
+            isLoggedIn ? <Historique /> : <Navigate replace to="/inscription" />
+          } />
           <Route path="/deconnexion" element={<Deconnexion />} />
           <Route path="/inscription" element={<Inscription />} />
         </Routes>

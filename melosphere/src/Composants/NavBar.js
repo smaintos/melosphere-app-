@@ -58,35 +58,37 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  };
 
  const handleLoginSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch('http://192.168.214.2:3002/connexion', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: loginEmail, mot_de_passe: loginPassword }),
-      });
+  event.preventDefault();
+  try {
+    const response = await fetch('http://192.168.214.2:3002/connexion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: loginEmail, mot_de_passe: loginPassword }),
+    });
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message);
-      }
-
+    if (!response.ok) {
       const data = await response.json();
-      console.log('Connexion réussie :', data);
-      localStorage.setItem('isLoggedIn', true);
-      localStorage.setItem('userPseudo', data.pseudo);
-      setIsLoggedIn(true);
-      setUserPseudo(data.pseudo);
-      setShowLoginModal(false);
-      alert('Connexion réussie');
-      window.location.reload();
-    } catch (error) {
-      console.error('Erreur lors de la connexion :', error);
-      alert('Erreur lors de la connexion');
+      throw new Error(data.message);
     }
- };
+
+    const data = await response.json();
+    console.log('Connexion réussie :', data);
+    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('userPseudo', data.pseudo);
+    localStorage.setItem('userId', data.userId); // Stocker l'ID de l'utilisateur
+    setIsLoggedIn(true);
+    setUserPseudo(data.pseudo);
+    setShowLoginModal(false);
+    alert('Connexion réussie');
+    window.location.reload();
+  } catch (error) {
+    console.error('Erreur lors de la connexion :', error);
+    alert('Erreur lors de la connexion');
+  }
+};
+
 
  const handleLogout = () => {
     setIsLoggedIn(false);
