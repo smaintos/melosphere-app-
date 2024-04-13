@@ -5,9 +5,10 @@ import YouTube from 'react-youtube'; // Importer le composant YouTube
 const DownloadAudio = () => {
  const [videoUrl, setVideoUrl] = useState('');
  const [youtubeVideoId, setYoutubeVideoId] = useState('');
+ const [showPlaylistsButton, setShowPlaylistsButton] = useState(false); // État pour contrôler l'affichage du bouton "Playlists +"
 
  const handleDownload = async () => {
-  try {
+ try {
      const response = await axios.get(`http://192.168.214.2:3002/downloadMp3?videoUrl=${encodeURIComponent(videoUrl)}`, {
        responseType: 'blob',
      });
@@ -39,32 +40,31 @@ const DownloadAudio = () => {
      } else {
         console.log('L\'utilisateur n\'est pas connecté.');
      }
-  } catch (error) {
+ } catch (error) {
      console.error('Error downloading MP3:', error);
-  }
+ }
  };
- 
 
-   const handleSearch = async () => {
-    try {
-       const id = extractVideoId(videoUrl);
-       setYoutubeVideoId(id);
-   
-       const userId = localStorage.getItem('userId');
-       if (userId) {
-          await axios.post('http://192.168.214.2:3002/historique', {
-            userId: userId,
-            url: videoUrl,
-            action: 'search',
-          });
-       } else {
-          console.log('L\'utilisateur n\'est pas connecté.');
-       }
-    } catch (error) {
-       console.error('Error searching video:', error);
-    }
-   };
-   
+ const handleSearch = async () => {
+ try {
+     const id = extractVideoId(videoUrl);
+     setYoutubeVideoId(id);
+     setShowPlaylistsButton(true); // Afficher le bouton "Playlists +" après la recherche
+
+     const userId = localStorage.getItem('userId');
+     if (userId) {
+        await axios.post('http://192.168.214.2:3002/historique', {
+          userId: userId,
+          url: videoUrl,
+          action: 'search',
+        });
+     } else {
+        console.log('L\'utilisateur n\'est pas connecté.');
+     }
+ } catch (error) {
+     console.error('Error searching video:', error);
+ }
+ };
 
  const extractVideoId = (url) => {
     const match = url.match(/[?&]v=([^&]+)/);
@@ -74,6 +74,14 @@ const DownloadAudio = () => {
  return (
     <div className="flex flex-col items-center">
       <div className="flex items-center mb-4">
+      {showPlaylistsButton && (
+          <button 
+            onClick={() => {/* Logique pour afficher les playlists */}} 
+            className="bg-yellow-600 text-white font-bold py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 ml-2 mr-4 "
+          >
+            Playlists +
+          </button>
+        )}
         <button 
           onClick={handleSearch} 
           className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -96,7 +104,7 @@ const DownloadAudio = () => {
       </div>
       {youtubeVideoId && <YouTube videoId={youtubeVideoId} />}
     </div>
-  );
+ );
 };
 
 export default DownloadAudio;

@@ -47,28 +47,34 @@ const PlaylistPage = () => {
  };
 
  return (
-    <div>
-      <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> {/* Ajoutez les props ici */}
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> {/* Transmettez également les props ici */}
-      <div className='mt-[3rem]'>
-        <h1>Playlist</h1>
-        <form onSubmit={handlePlaylistSubmit}>
-          <input
-            type="text"
-            placeholder="Nom de la playlist"
-            value={newPlaylistName}
-            onChange={(e) => setNewPlaylistName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Description de la playlist"
-            value={newPlaylistDescription}
-            onChange={(e) => setNewPlaylistDescription(e.target.value)}
-          />
-          <button type="submit">Créer une nouvelle playlist</button>
-        </form>
-      </div>
+  <div>
+  <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> {/* Ajoutez les props ici */}
+  <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> {/* Transmettez également les props ici */}
+  <div className="flex justify-start items-start h-screen p-8 mt-[5rem]"> {/* Utilisation de p-8 pour ajouter un padding */}
+    <div className="bg-gray-100 p-8 rounded-md shadow-lg w-full max-w-lg"> {/* Utilisation de w-full et max-w-lg pour limiter la largeur */}
+      <h1 className="text-xl font-semibold mb-4">Créer une nouvelle playlist</h1>
+      <form onSubmit={handlePlaylistSubmit} className="space-y-4">
+        <input
+          type="text"
+          placeholder="Nom de la playlist"
+          value={newPlaylistName}
+          onChange={(e) => setNewPlaylistName(e.target.value)}
+          className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-purple-500"
+        />
+        <input
+          type="text"
+          placeholder="Description de la playlist"
+          value={newPlaylistDescription}
+          onChange={(e) => setNewPlaylistDescription(e.target.value)}
+          className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-purple-500"
+        />
+        <button type="submit" className="block w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:bg-purple-700">
+          Créer une nouvelle playlist
+        </button>
+      </form>
     </div>
+  </div>
+</div>
  );
 };
 
