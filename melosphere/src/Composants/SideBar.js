@@ -21,7 +21,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     <Link to="/historique" onClick={toggleSidebar}>Historique</Link>
                 </li>
                 <li className="mb-2">
-                    <Link to="/deconnexion" onClick={toggleSidebar}>Déconnexion</Link>
+                    <Link to="/playlists" onClick={toggleSidebar}>Playlist</Link>
                 </li>
             </ul>
         </div>

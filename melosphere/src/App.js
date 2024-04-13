@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Accueil from './Pages/Accueil';
 import Profil from './Pages/Profil';
 import Historique from './Pages/Historique';
-import Deconnexion from './Pages/Deconnexion';
 import Inscription from './Pages/Inscription';
+import Playlist from './Pages/Playlists';
 
 function App() {
  const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,7 +27,9 @@ function App() {
           <Route path="/historique" element={
             isLoggedIn ? <Historique /> : <Navigate replace to="/inscription" />
           } />
-          <Route path="/deconnexion" element={<Deconnexion />} />
+          <Route path="/playlists" element={
+            isLoggedIn ? <Playlist /> : <Navigate replace to="/inscription" />
+          } />
           <Route path="/inscription" element={<Inscription />} />
         </Routes>
       </BrowserRouter>
