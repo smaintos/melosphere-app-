@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import Sidebar from './SideBar'; // Assurez-vous d'importer le composant Sidebar
+import { Link } from 'react-router-dom';
 
 const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  const [showSignUpModal, setShowSignUpModal] = useState(false);
@@ -123,6 +124,13 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </g>
           </g>
         </svg>
+        <div className="flex items-center space-x-4">
+          {/* Ajout du bouton "Crée une playlist" qui redirige vers /playlists */}
+          <Link to="/playlists" className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem]">
+            Crée une playlist +
+          </Link>
+          {/* Votre code existant ici... */}
+        </div>
       </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex items-center space-x-4">
@@ -139,6 +147,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         )}
       </div>
     </div>
+    
 
       {showSignUpModal && (
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
