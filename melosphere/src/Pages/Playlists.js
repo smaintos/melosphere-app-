@@ -58,9 +58,10 @@ const PlaylistPage = () => {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
       <div className="flex flex-col flex-grow w-full">
         <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-        <div className="p-[2em] flex-grow overflow-hidden">
-          <div className="flex flex-col md:flex-row justify-between p-8">
-            <div className="bg-gray-100 p-8 rounded-md shadow-lg w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full">
+        <div className="p-[3em] flex-grow overflow-auto">
+          <div className="flex flex-col md:flex-row justify-between p-8 relative">
+            {/* Fenêtre de création de playlist */}
+            <div className="bg-gray-100 p-8 rounded-md shadow-lg w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[13rem] sticky top-0">
               <h1 className="text-xl font-semibold mb-4">Créer une nouvelle playlist</h1>
               <form onSubmit={handlePlaylistSubmit} className="space-y-4">
                 <input
@@ -82,9 +83,10 @@ const PlaylistPage = () => {
                 </button>
               </form>
             </div>
-            <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:gap-8">
+            {/* Playlists */}
+            <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-[5rem] ml-[15rem]">
               {playlists.map((playlist, index) => (
-                <div key={index} className="bg-gray-200 p-8 rounded-md shadow-lg w-[300px] h-[200px] overflow-auto">
+                <div key={index} className="bg-gray-200 p-8 rounded-md shadow-lg w-[454px] h-[800px] overflow-auto sticky top-0">
                   <h1 className="text-xl font-semibold mb-2">{playlist.name}</h1>
                   <p>{playlist.description}</p>
                 </div>
