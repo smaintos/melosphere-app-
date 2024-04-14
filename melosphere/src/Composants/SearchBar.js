@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import YouTube from 'react-youtube'; // Importer le composant YouTube
+import YouTube from 'react-youtube';
 
 const DownloadAudio = () => {
- const [videoUrl, setVideoUrl] = useState('');
- const [youtubeVideoId, setYoutubeVideoId] = useState('');
- const [showPlaylistsButton, setShowPlaylistsButton] = useState(false); // État pour contrôler l'affichage du bouton "Playlists +"
- const [showModal, setShowModal] = useState(false); // État pour contrôler l'affichage de la fenêtre modale
+  const [videoUrl, setVideoUrl] = useState('');
+  const [youtubeVideoId, setYoutubeVideoId] = useState('');
+  const [showPlaylistsButton, setShowPlaylistsButton] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
- const handleDownload = async () => {
+  // Fonction pour vérifier si l'utilisateur est connecté
+  const checkLoggedIn = () => {
+    const userId = localStorage.getItem('userId');
+    setIsLoggedIn(!!userId); // Convertit en boolean (true si userId existe, sinon false)
+  };
+
+  // Vérifier la connexion de l'utilisateur à chaque rechargement
+  useEffect(() => {
+    checkLoggedIn();
+  }, []);
+
+  const handleDownload = async () => {
     try {
       const response = await axios.get(`http://192.168.214.2:3002/downloadMp3?videoUrl=${encodeURIComponent(videoUrl)}`, {
         responseType: 'blob',
@@ -44,9 +56,9 @@ const DownloadAudio = () => {
     } catch (error) {
       console.error('Error downloading MP3:', error);
     }
- };
+  };
 
- const handleSearch = async () => {
+  const handleSearch = async () => {
     try {
       const id = extractVideoId(videoUrl);
       setYoutubeVideoId(id);
@@ -65,27 +77,41 @@ const DownloadAudio = () => {
     } catch (error) {
       console.error('Error searching video:', error);
     }
- };
+  };
 
- const extractVideoId = (url) => {
+  const extractVideoId = (url) => {
     const match = url.match(/[?&]v=([^&]+)/);
     return match[1];
- };
+  };
 
- const handleOpenModal = () => {
+// eslint-disable-next-line
+const handleOpenModal = () => {
+  if (isLoggedIn) {
     setShowModal(true); // Ouvrir la fenêtre modale
- };
+  } else {
+    alert('Veuillez vous connecter pour accéder à cette fonctionnalité.');
+  }
+};
 
- const handleCloseModal = () => {
+
+  const handleCloseModal = () => {
     setShowModal(false); // Fermer la fenêtre modale
- };
+  };
 
- return (
+  const handlePlaylistAction = () => {
+    if (isLoggedIn) {
+      // Logique pour l'action de la playlist
+    } else {
+      alert('Veuillez vous connecter pour accéder à cette fonctionnalité.');
+    }
+  };
+
+  return (
     <div className="flex flex-col items-center">
       <div className="flex items-center mb-4">
-        {showPlaylistsButton && (
+        {showPlaylistsButton && isLoggedIn && (
           <button 
-            onClick={handleOpenModal} // Modifier pour ouvrir la fenêtre modale
+            onClick={handlePlaylistAction} 
             className="bg-yellow-600 text-white font-bold py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-85 ml-2 mr-4"
           >
             Playlists +
@@ -122,17 +148,27 @@ const DownloadAudio = () => {
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
-                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                       Playlist
                     </h3>
                     {/* Contenu de la fenêtre modale ici */}
-                 </div>
+                    {isLoggedIn ? (
+                      <div>
+                        Contenu de la playlist...
+                        Utilisateur connecté : {isLoggedIn ? 'Oui' : 'Non'}
+                      </div>
+                    ) : (
+                      <div>
+                        Veuillez vous connecter pour accéder à cette fonctionnalité.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={handleCloseModal}>
-                 Fermer
+                  Fermer
                 </button>
               </div>
             </div>
@@ -140,7 +176,7 @@ const DownloadAudio = () => {
         </div>
       )}
     </div>
- );
+  );
 };
 
 export default DownloadAudio;
