@@ -109,28 +109,30 @@ const PlaylistPage = () => {
               </form>
             </div>
             <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-[5rem] ml-[15rem] transform translate-y-[2rem]">
-              {playlists.map((playlist, index) => (
-                <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[600px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
-                  <h1 className="text-[1.7rem] font-semibold text-center">{playlist.name}</h1>
-                  <p className="py-[1.5rem]">Description : {playlist.description}</p>
-                  <div className="flex flex-col items-center mt-8">
-                    <input
-                      type="text"
-                      placeholder="Lien à ajouter"
-                      value={newLink[playlist.id] || ''}
-                      onChange={(e) => setNewLink({ ...newLink, [playlist.id]: e.target.value })}
-                      className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-purple-500 mb-4 text-black"
-                    />
-                    <button
-                      onClick={() => handleAddLink(playlist.id)}
-                      className="bg-purple-500 text-white font-bold py-2 px-4 rounded-md border border-transparent hover:bg-purple-600 transition-colors duration-300"
-                    >
-                      Ajouter
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+ {playlists.map((playlist, index) => (
+    <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[600px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
+      <h1 className="text-[1.7rem] font-semibold text-center">{playlist.name}</h1>
+      <p className="py-[1.5rem]">Description : {playlist.description}</p>
+      <div className="flex flex-col items-center mt-8">
+        <input
+          type="text"
+          placeholder="Lien à ajouter"
+          value={newLink[playlist.id] || ''}
+          onChange={(e) => setNewLink({ ...newLink, [playlist.id]: e.target.value })}
+          pattern="https?://.+"
+          title="Please enter a valid URL"
+          className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-purple-500 mb-4 text-black"
+        />
+        <button
+          onClick={() => handleAddLink(playlist.id)}
+          className="bg-purple-500 text-white font-bold py-2 px-4 rounded-md border border-transparent hover:bg-purple-600 transition-colors duration-300"
+        >
+          Ajouter
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
           </div>
         </div>
       </div>
