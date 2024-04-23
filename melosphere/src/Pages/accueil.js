@@ -7,7 +7,7 @@ function Accueil() {
 
  return (
     <div>
-      <header>
+      <header> 
         <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         <div className="bg-gray-100 h-screen">
           <div className="m-0 flex flex-col justify-center items-center pt-40">

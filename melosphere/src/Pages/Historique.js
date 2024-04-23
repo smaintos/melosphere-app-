@@ -33,7 +33,7 @@ const Historique = () => {
       <ul>
         {historique.map((item, index) => (
           <li key={index} className="mb-2">
-            {item.url} - {item.action} le {new Date(item.date).toLocaleDateString()}
+            {item.url} - {item.action} le {new Date(item.date).toLocaleDateString()} - Heure {new Date(item.date).toLocaleTimeString()}
           </li>
         ))}
       </ul>

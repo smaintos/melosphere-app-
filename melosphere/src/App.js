@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Accueil from './Pages/Accueil';
@@ -8,13 +7,18 @@ import Inscription from './Pages/Inscription';
 import Playlist from './Pages/Playlists';
 
 function App() {
- const [isLoggedIn, setIsLoggedIn] = useState(false);
- 
+ // Fonction pour initialiser l'état de connexion à partir de localStorage
+ const initializeIsLoggedIn = () => {
+    return localStorage.getItem('isLoggedIn') === 'true';
+ };
 
+
+const [isLoggedIn] = useState(initializeIsLoggedIn);
+
+ // Mettre à jour l'état de connexion dans localStorage chaque fois qu'il change
  useEffect(() => {
-    const loggedIn = localStorage.getItem('isLoggedIn');
-    setIsLoggedIn(loggedIn === 'true');
- }, []);
+    localStorage.setItem('isLoggedIn', isLoggedIn);
+ }, [isLoggedIn]);
 
  return (
     <div>
