@@ -131,7 +131,7 @@ const extractVideoId = (url) => {
 
 
 return (
-  <div className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500  overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white"> 
+  <div className=""> 
           {error && <div className="error-message">{error}</div>}
     <div className="flex items-center mb-4">
       <button onClick={handleSearch} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">

@@ -109,37 +109,46 @@ const PlaylistPage = () => {
                </form>
             </div>
             <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-[5rem] ml-[15rem] transform translate-y-[2rem]">
-          {playlists.map((playlist, index) => (
-              <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[600px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
-                <h1 className="text-[1.7rem] font-semibold text-center">{playlist.name}</h1>
-                <p className="py-[1.5rem]">Description : {playlist.description}</p>
-                <div>
-                {playlist.link ? playlist.link.replace(/,/g, ' ').split(' ').map((word, i) => (
-                  <React.Fragment key={i}>
-                    {word}
-                    <br />
-                  </React.Fragment>
-                )) : null}
-              </div>
-              <div className="flex flex-col items-center mt-[15rem]">
- <input
-    type="text"
-    placeholder="Lien à ajouter"
-    value={newLink[playlist.id] || ''}
-    onChange={(e) => setNewLink({ ...newLink, [playlist.id]: e.target.value })}
-    pattern="https?://.+"
-    title="Please enter a valid URL"
-    className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
- />
- <button
-    onClick={() => handleAddLink(playlist.id)}
-    className="block w-full bg-black text-white font-bold py-[0.7rem] px-4 rounded-md border border-transparent hover:border-white mt-[1rem]"
- >
-    Ajouter
- </button>
-</div>
-              </div>
-            ))}
+            {playlists.map((playlist, index) => (
+          <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[600px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
+            {/* Enveloppez le titre et le bouton dans un div pour les aligner */}
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-[1.7rem] font-semibold">{playlist.name}</h1>
+              {/* Ajout du bouton Télécharger à droite du titre */}
+              <button
+                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-500 "
+              >
+                ☔
+              </button>
+            </div>
+            <p className="py-[1.5rem]">Description : {playlist.description}</p>
+            <div>
+              {playlist.link? playlist.link.replace(/,/g, ' ').split(' ').map((word, i) => (
+                <React.Fragment key={i}>
+                  {word}
+                  <br />
+                </React.Fragment>
+              )) : null}
+            </div>
+            <div className="flex flex-col items-center mt-[15rem]">
+              <input
+                type="text"
+                placeholder="Lien à ajouter"
+                value={newLink[playlist.id] || ''}
+                onChange={(e) => setNewLink({...newLink, [playlist.id]: e.target.value })}
+                pattern="https?://.+"
+                title="Please enter a valid URL"
+                className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
+              />
+              <button
+                onClick={() => handleAddLink(playlist.id)}
+                className="block w-full bg-black text-white font-bold py-[0.7rem] px-4 rounded-md border border-transparent hover:border-white mt-[1rem]"
+              >
+                Ajouter
+              </button>
+            </div>
+          </div>
+        ))}
           </div>
           </div>
         </div>
