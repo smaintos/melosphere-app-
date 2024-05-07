@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import Sidebar from './SideBar'; // Assurez-vous d'importer le composant Sidebar
 import { Link } from 'react-router-dom';
 
+
 const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  const [showSignUpModal, setShowSignUpModal] = useState(false);
  const [showLoginModal, setShowLoginModal] = useState(false);
@@ -143,11 +144,16 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <>
             <span className="text-white mr-[1.2rem] ">{userPseudo}</span>
             <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white font-bold py-[0.3rem] px-[0.5rem] rounded">Déconnexion</button>
+                          {/* Ajout du bouton "Admin" */}
+                          {(userPseudo === "gregouzx" || userPseudo === "smaintos") && (
+                <Link to="/AdminPannel" className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                 Admin
+                </Link>
+              )}
           </>
         )}
       </div>
     </div>
-    
 
       {showSignUpModal && (
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">

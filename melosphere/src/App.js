@@ -5,6 +5,7 @@ import Profil from './Pages/Profil';
 import Historique from './Pages/Historique';
 import Inscription from './Pages/Inscription';
 import Playlist from './Pages/Playlists';
+import AdminPannel from './Pages/AdminPannel';
 
 function App() {
  // Fonction pour initialiser l'état de connexion à partir de localStorage
@@ -35,6 +36,7 @@ const [isLoggedIn] = useState(initializeIsLoggedIn);
             isLoggedIn ? <Playlist /> : <Navigate replace to="/inscription" />
           } />
           <Route path="/inscription" element={<Inscription />} />
+          <Route path="/AdminPannel" element={<AdminPannel />} />
         </Routes>
       </BrowserRouter>
     </div>
