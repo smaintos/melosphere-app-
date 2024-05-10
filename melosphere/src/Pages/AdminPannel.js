@@ -78,7 +78,7 @@ const AdminPannel = () => {
             <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
             <div className="container mx-auto px-4 mt-32">
-                <h2 className="text-2xl font-bold mb-4">Admin Panel</h2>
+                <h2 className="text-2xl font-bold mb-4">Melosphere Admin Pannel</h2>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
