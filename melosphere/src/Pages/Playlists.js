@@ -79,6 +79,52 @@ const PlaylistPage = () => {
       .catch(error => console.error('Erreur lors de l\'ajout du lien:', error));
   };
 
+  const handleDownload = async (playlistId) => {
+    const playlist = playlists.find(playlist => playlist.id === playlistId); // Trouver la playlist par son ID
+    if (!playlist) {
+        console.error('Playlist not found');
+        return;
+    }
+
+    const links = playlist.link.split(','); // Récupérer les liens de la playlist
+
+    try {
+        const response = await fetch('http://192.168.214.2:3002/downloadPlaylist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ links }), // Envoyer les liens dans le corps de la requête
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors du téléchargement');
+        }
+
+        // Extraire le nom du fichier du contenu-disposition de l'en-tête de réponse
+        const disposition = response.headers.get('content-disposition');
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(disposition);
+        let filename = 'playlist.zip';
+        if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, '');
+        }
+
+        // Convertir la réponse en blob et créer un lien pour le téléchargement
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    } catch (error) {
+        console.error('Erreur lors du téléchargement de la playlist :', error);
+        // Vous pouvez ajouter ici un traitement supplémentaire si nécessaire
+    }
+};
+
   return (
     <div className="flex h-screen bg-zinc-950">
        <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
@@ -86,7 +132,7 @@ const PlaylistPage = () => {
          <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
          <div className="p-[3em] flex-grow overflow-auto">
            <div className="flex flex-col md:flex-row justify-between p-8 relative">
-             <div className="group bg-black p-8 rounded-md shadow-2xl shadow-purple-500 w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[6rem] sticky top-0 transform hover:-translate-y-3 transition-transform duration-200 ease-in-out hover:shadow-white border-2 border-purple-500 hover:border-white ">
+             <div className="group bg-black p-8 rounded-md shadow-2xl shadow-purple-500 w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[6rem] sticky top-0 transform hover:-translate-y-3 transition-transform duration-200 ease-in-out hover:shadow-white border-2 border-purple-500">
                <h1 className="text-xl font-semibold mb-4 text-white">Créer une nouvelle playlist</h1>
                <form onSubmit={handlePlaylistSubmit} className="space-y-4">
                  <input
@@ -110,15 +156,16 @@ const PlaylistPage = () => {
             </div>
             <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-[5rem] ml-[15rem] transform translate-y-[2rem]">
             {playlists.map((playlist, index) => (
-          <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[600px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
+          <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[630px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
             {/* Enveloppez le titre et le bouton dans un div pour les aligner */}
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-[1.7rem] font-semibold">{playlist.name}</h1>
               {/* Ajout du bouton Télécharger à droite du titre */}
               <button
-                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-500 "
+                onClick={() => handleDownload(playlist.id)}
+                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-600 "
               >
-                ☔
+                Télécharger
               </button>
             </div>
             <p className="py-[1.5rem]">Description : {playlist.description}</p>
