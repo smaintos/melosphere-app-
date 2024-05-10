@@ -163,7 +163,7 @@ const PlaylistPage = () => {
               {/* Ajout du bouton Télécharger à droite du titre */}
               <button
                 onClick={() => handleDownload(playlist.id)}
-                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-500 "
+                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-600 "
               >
                 ☂️
               </button>

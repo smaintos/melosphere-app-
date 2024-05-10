@@ -1,23 +1,26 @@
 import React from 'react';
 
-const VideoSuggestions = ({ suggestedVideos,onVideoClick }) => {
-  // Dans VideoSuggestions.js, avant de rendre les images
-  console.log(suggestedVideos); // Vérifiez que les données sont correctes
+const VideoSuggestions = ({ suggestedVideos, onVideoClick }) => {
   return (
-     <div className="flex flex-wrap justify-center">
-       {suggestedVideos.slice(0, 4).map((video, index) => (
-         <div key={index} className="m-2" style={{ flex: '0 0 calc(20% - 16px)' }}>
-           <img
+    <div className="flex flex-wrap justify-center"> 
+      {suggestedVideos.map((video, index) => (
+        <div
+          key={index}
+          className="m-2 p-4 bg-black rounded-lg flex flex-col items-center" // Remplir avec bg-purple-700 et centrer
+          style={{ flex: '0 0 calc(20% - 16px)' }} // 20% de largeur moins 16px de marge
+        >
+          <img
             src={video.thumbnails[0].url}
             alt={video.title}
-            onClick={() => onVideoClick(video.video_id)} // Assurez-vous que video_id est correct
-            className="cursor-pointer"
+            onClick={() => onVideoClick(video.video_id)}
+            className="cursor-pointer rounded-md" // Coins arrondis
+            style={{ maxWidth: '100%', maxHeight: '200px' }} // Conserver l'image à une taille raisonnable
           />
-           <p>{video.title}</p>
-         </div>
-       ))}
-     </div>
+          <p className="mt-2 text-center text-white font-semibold">{video.title}</p> 
+        </div>
+      ))}
+    </div>
   );
- };
+};
 
 export default VideoSuggestions;

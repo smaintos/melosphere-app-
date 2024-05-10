@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import Sidebar from './SideBar'; // Assurez-vous d'importer le composant Sidebar
 import { Link } from 'react-router-dom';
+import logo from './logomelosphere.png';
 
 
 const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
@@ -133,6 +134,11 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           {/* Votre code existant ici... */}
         </div>
       </div>
+      <div className="flex items-center justify-center flex-1"> 
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="Logo Melosphere" className="h-8" />
+          </Link>
+        </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex items-center space-x-4">
         {!isLoggedIn ? (
