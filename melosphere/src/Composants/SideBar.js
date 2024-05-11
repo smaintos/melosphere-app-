@@ -23,6 +23,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <li className="mb-2">
                     <Link to="/playlists" onClick={toggleSidebar}>Playlist</Link>
                 </li>
+                <li className="mb-2">
+                    <Link to="/melozone" onClick={toggleSidebar}>Melozone</Link>
+                </li>
             </ul>
         </div>
     );

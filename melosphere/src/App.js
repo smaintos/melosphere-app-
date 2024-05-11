@@ -7,6 +7,7 @@ import Historique from './Pages/Historique';
 import Inscription from './Pages/Inscription';
 import Playlist from './Pages/Playlists';
 import AdminPannel from './Pages/AdminPannel';
+import Room from './Pages/Room';
 
 
 
@@ -43,6 +44,7 @@ const [isLoggedIn] = useState(initializeIsLoggedIn);
           } />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/AdminPannel" element={<AdminPannel />} />
+          <Route path="/melozone" element={<Room />} />
 
         </Routes>
       </BrowserRouter>
