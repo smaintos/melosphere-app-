@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { createRoot } from 'react-dom';
 import Accueil from './Pages/Accueil';
 import Profil from './Pages/Profil';
 import Historique from './Pages/Historique';
 import Inscription from './Pages/Inscription';
 import Playlist from './Pages/Playlists';
 import AdminPannel from './Pages/AdminPannel';
+
+
+
+const root = document.getElementById('root');
+createRoot(root).render(<App />);
 
 function App() {
  // Fonction pour initialiser l'état de connexion à partir de localStorage
@@ -37,6 +43,7 @@ const [isLoggedIn] = useState(initializeIsLoggedIn);
           } />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/AdminPannel" element={<AdminPannel />} />
+
         </Routes>
       </BrowserRouter>
     </div>

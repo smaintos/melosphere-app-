@@ -15,6 +15,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  const [signUpPassword, setSignUpPassword] = useState('');
  const [loginEmail, setLoginEmail] = useState('');
  const [loginPassword, setLoginPassword] = useState('');
+ const [isHovered, setIsHovered] = useState(false);
 
  useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -90,7 +91,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
     console.error('Erreur lors de la connexion :', error);
     alert('Erreur lors de la connexion');
   }
-};
+ };
 
 
  const handleLogout = () => {
@@ -108,7 +109,8 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
  
  return (
-  <nav className="bg-gray-800 text-white p-2 fixed top-0 w-full z-50">
+  <div className="relative">
+  <nav className="bg-black text-white p-2 fixed top-0 w-full z-50 border-b border-white rounded-b">
   <div className="m-0 flex justify-between items-center">
       <div className="flex items-center space-x-4">
         <svg 
@@ -128,9 +130,19 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </svg>
         <div className="flex items-center space-x-4">
           {/* Ajout du bouton "Crée une playlist" qui redirige vers /playlists */}
-          <Link to="/playlists" className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem]">
-            Crée une playlist +
-          </Link>
+          <Link 
+  to="/playlists" 
+  className="text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem] transform transition-transform duration-200 ease-in-out hover:scale-110"
+>
+  Crée une playlist +
+</Link>
+
+<style jsx>{`
+ .zoom-on-hover:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+  }
+`}</style>
           {/* Votre code existant ici... */}
         </div>
       </div>
@@ -143,18 +155,38 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <div className="flex items-center space-x-4">
         {!isLoggedIn ? (
           <>
-            <button onClick={toggleSignUpModal} className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem]">S'inscrire</button>
-            <button onClick={toggleLoginModal} className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Se connecter</button>
+        <button onClick={toggleSignUpModal} className="text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem] transform transition-transform duration-200 ease-in-out hover:scale-110">
+          S'inscrire
+        </button>
+        <button onClick={toggleLoginModal} className="text-white px-3 py-2 rounded-md text-sm font-medium transform transition-transform duration-200 ease-in-out hover:scale-110">
+          Se connecter
+        </button>
           </>
         ) : (
           <>
-            <span className="text-white mr-[1.2rem] ">{userPseudo}</span>
-            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white font-bold py-[0.3rem] px-[0.5rem] rounded">Déconnexion</button>
-                          {/* Ajout du bouton "Admin" */}
-                          {(userPseudo === "gregouzx" || userPseudo === "smaintos") && (
-                <Link to="/AdminPannel" className="text-purple-400 hover:bg-purple-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                 Admin
-                </Link>
+          <span
+            className="text-white mr-[1.2rem] cursor-pointer relative"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {userPseudo}
+            {isHovered && (
+              <div className="relative w-full">
+                <div className="h-0.5 bg-white w-full absolute bottom-0" style={{ bottom: '-0.2rem' }}></div>
+              </div>
+            )}
+          </span>
+          <button onClick={handleLogout} className="text-red-500 font-bold py-[0.3rem] px-[0.5rem] rounded transform transition-transform duration-200 ease-in-out hover:scale-110">
+          Déconnexion
+        </button>
+                {/* Ajout du bouton "Admin" */}
+                {(userPseudo === "gregouzx" || userPseudo === "smaintos") && (
+              <Link 
+                to="/AdminPannel" 
+                className="text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem] transform transition-transform duration-200 ease-in-out hover:scale-110"
+              >
+                Admin
+              </Link>
               )}
           </>
         )}
@@ -207,8 +239,11 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </form>
           </div>
         </div>
+        
       )}
     </nav>
+  </div>
+  
  );
 };
 

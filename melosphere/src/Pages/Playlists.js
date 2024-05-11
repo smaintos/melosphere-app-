@@ -125,6 +125,23 @@ const PlaylistPage = () => {
     }
 };
 
+const handleDeletePlaylist = async (playlistId) => {
+  try {
+    const response = await fetch(`http://192.168.214.2:3002/playlists/${playlistId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de la playlist');
+    }
+
+    console.log('Playlist supprimée avec succès');
+    setPlaylists(playlists.filter(playlist => playlist.id!== playlistId));
+  } catch (error) {
+    console.error('Erreur lors de la suppression de la playlist:', error);
+  }
+};
+
   return (
     <div className="flex h-screen bg-zinc-950">
        <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
@@ -159,14 +176,22 @@ const PlaylistPage = () => {
           <div key={index} className="bg-black p-8 rounded-md shadow-2xl shadow-purple-500 border-purple-500 w-[454px] h-[630px] overflow-auto transform hover:-translate-y-7 transition-transform duration-200 ease-in-out border-2 text-white">
             {/* Enveloppez le titre et le bouton dans un div pour les aligner */}
             <div className="flex justify-between items-center mb-4">
-              <h1 className="text-[1.7rem] font-semibold">{playlist.name}</h1>
-              {/* Ajout du bouton Télécharger à droite du titre */}
-              <button
+          {/* Ajout du bouton Télécharger à droite du titre */}
+          <button
                 onClick={() => handleDownload(playlist.id)}
-                className="bg-transparent border-2 border-purple-500 font-bold py-2 px-4 rounded text-2xl hover:bg-transparent hover:bg-purple-600 "
+                className="bg-transparent border-2 border-purple-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-purple-500 "
               >
                 ☂️
               </button>
+              <h1 className="text-[1.7rem] font-semibold">{playlist.name}</h1>
+            {/* Ajout du bouton Télécharger à droite du titre */}
+            <button
+                onClick={() => handleDeletePlaylist(playlist.id)}
+                className="bg-transparent border-2 border-red-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-red-600 mr-2"
+              >
+                🗑️
+              </button>
+              
             </div>
             <p className="py-[1.5rem]">Description : {playlist.description}</p>
             <div>
