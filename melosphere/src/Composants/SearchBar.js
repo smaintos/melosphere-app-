@@ -9,7 +9,7 @@ const DownloadAudio = () => {
   const [videoUrl, setVideoUrl] = useState('');
   const [youtubeVideoId, setYoutubeVideoId] = useState('');
   const [suggestedVideos, setSuggestedVideos] = useState([]);
-  const [, setError] = useState(null);
+  const [error, setError] = useState(null);
 
   const fetchSuggestedVideos = useCallback(
     async (videoId) => {
@@ -31,7 +31,7 @@ const DownloadAudio = () => {
         setSuggestedVideos(reducedVideos);
       } catch (error) {
         console.error('Erreur lors de la récupération des vidéos recommandées:', error.message);
-        setError(error.message);
+        setError(error.message); // Mettre à jour l'état d'erreur
       }
     },
     []
@@ -85,6 +85,7 @@ const DownloadAudio = () => {
       }
     } catch (error) {
       console.error('Error downloading MP3:', error);
+      setError(error.message); // Mettre à jour l'état d'erreur
     }
  };
 
@@ -92,6 +93,8 @@ const DownloadAudio = () => {
   const videoId = extractVideoId(videoUrl);
   if (!videoId) {
     console.error('L\'URL de la vidéo n\'est pas valide ou ne contient pas d\'ID de vidéo.');
+    setError('Uniquement une url youtube.'); // Mettre à jour l'état d'erreur
+
     return;
   }
 
@@ -111,6 +114,7 @@ const DownloadAudio = () => {
     }
   } catch (error) {
     console.error('Erreur lors de l\'ajout à l\'historique:', error);
+    setError('Erreur lors de l\'ajout à l\'historique: ' + error.message); // Mettre à jour l'état d'erreur
   }
 };
 
@@ -129,14 +133,16 @@ const DownloadAudio = () => {
       <img
         src={logo}
         alt="Logomelosphere"
-        className="h-6 w-auto"
+        className="h-6"
       />
+      
     </button>
           <input
             type="text"
             placeholder="URL"
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
+            title="Seulement les url de youtube sont acceptées."
             className="w-[34rem] h-[2.50rem] bg-black text-white border-2 border-purple-600 p-2 shadow-md shadow-purple-500 "
             style={{ zIndex: "1" }}
           />
@@ -161,6 +167,9 @@ const DownloadAudio = () => {
             onVideoClick={handleVideoClick}
           />
         </div>
+      )}
+      {error && (
+      <div className="text-red-500 mb-4">{error}</div> // Affichage du message d'erreur en rouge
       )}
     </div>
   );

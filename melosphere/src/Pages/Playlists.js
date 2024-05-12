@@ -160,7 +160,7 @@ const handleDeletePlaylist = async (playlistId) => {
          <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
          <div className="p-[3em] flex-grow overflow-auto">
            <div className="flex flex-col md:flex-row justify-between p-8 relative">
-             <div className="group bg-black p-8 rounded-md shadow-2xl shadow-purple-500 w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[6rem] sticky top-0 transform hover:-translate-y-3 transition-transform duration-200 ease-in-out hover:shadow-white border-2 border-purple-500">
+             <div className="group bg-black p-8 rounded-md shadow-2xl shadow-purple-500 w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[6rem] sticky top-0 transform hover:-translate-y-3 transition-transform duration-200 ease-in-out hover:shadow-white border-2 border-purple-500" >
                <h1 className="text-xl font-semibold mb-4 text-white">Créer une nouvelle playlist</h1>
                {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                <form onSubmit={handlePlaylistSubmit} className="space-y-4">
