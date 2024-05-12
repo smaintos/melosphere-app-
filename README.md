@@ -11,10 +11,10 @@ Alors, qu'attendez-vous pour rejoindre la Melosphere ?
 
 ### Comment lancer Melosphere ? :     
 
-Vous n'avez qu'à aller sur notre repos disponible uniquement sur notre [GitHub](https://github.com/smaintos/melosphere-app-.git) , une fois cela fait cloner notre repos sur votre pc à l'endroit que vous voulez : ![image](https://hackmd.io/_uploads/BktcJ20G0.png)
+Vous n'avez qu'à aller sur notre repos disponible uniquement sur notre [GitHub](https://github.com/smaintos/melosphere-app-.git) , une fois cela fait cloner notre repos sur votre pc à l'endroit que vous voulez : (https://hackmd.io/_uploads/BktcJ20G0.png)
 
 
-Une fois cela fait entrer dans le dossier melosphere ![image](https://hackmd.io/_uploads/BJoUJnRzR.png)
+Une fois cela fait entrer dans le dossier melosphere (https://hackmd.io/_uploads/BJoUJnRzR.png)
 
 
 Une fois cela fait effectuer un `npm install` cela vous installera toutes les dépendances qu'a besoin le projet, une fois cela fait lancer le site web avec la commande `npm start`.
