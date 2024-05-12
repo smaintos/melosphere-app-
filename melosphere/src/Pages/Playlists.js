@@ -179,7 +179,7 @@ const handleDeletePlaylist = async (playlistId) => {
           {/* Ajout du bouton Télécharger à droite du titre */}
           <button
                 onClick={() => handleDownload(playlist.id)}
-                className="bg-transparent border-2 border-purple-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-purple-500 "
+                className="bg-transparent border-2 border-purple-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-purple-800 "
               >
                 ☂️
               </button>
@@ -187,7 +187,7 @@ const handleDeletePlaylist = async (playlistId) => {
             {/* Ajout du bouton Télécharger à droite du titre */}
             <button
                 onClick={() => handleDeletePlaylist(playlist.id)}
-                className="bg-transparent border-2 border-red-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-red-600 mr-2"
+                className="bg-transparent border-2 border-red-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-red-800 mr-2"
               >
                 🗑️
               </button>

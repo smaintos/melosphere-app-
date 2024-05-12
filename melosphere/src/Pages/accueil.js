@@ -43,7 +43,7 @@ function Accueil() {
             style={{
               backgroundImage: `url(${image})`,
               backgroundPosition: `calc(50% + ${backgroundOffsetX}px) calc(50% + ${backgroundOffsetY}px)`,
-              backgroundSize: '115rem 100rem', // Remplacez 800px par la largeur souhaitée et 600px par la hauteur souhaitée
+              backgroundSize: '115rem 110rem', // Remplacez 800px par la largeur souhaitée et 600px par la hauteur souhaitée
               transition: 'background-position 0.1s',
             }}
           >

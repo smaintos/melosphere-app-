@@ -36,7 +36,7 @@ const Profil = () => {
       <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-      <div className="flex flex-col justify-center items-center bg-black text-white min-h-screen py-[3rem]"> {/* Fond noir, texte blanc */}
+      <div className="flex flex-col justify-center items-center bg-zinc-950 text-white min-h-screen py-[3rem]"> {/* Fond noir, texte blanc */}
       <div className="bg-black rounded-lg shadow-2xl shadow-purple-500 p-8 w-full lg:max-w-xl flex flex-col items-center transform transition-transform duration-200 ease-in-out hover:-translate-y-3 hover:shadow-white border-2 border-purple-700 hover:border-white"> {/* Structure de la carte de profil */}
         
         <h1 className="text-3xl font-semibold text-center mb-8">Profil de {userData.pseudo}</h1> {/* Pseudo en blanc, centré */}
