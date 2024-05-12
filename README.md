@@ -1,5 +1,7 @@
 # MELOSPHERE
 
+( Pour que le site web puisse communiquer avec nos serveurs il faut avoir un vpn avec un profil et des accès bien précis. )
+
 Nous avons l'honneur de vous annoncer la fin de la réalisation du projet DEV-B2 Melosphere , qui est un site web pour les personnes qui aiment la musique et aime partager la musique.
 
 Melosphere est un site web ou vous pourrez rechercher vos titres préférés grâce à une URL YouTube et trouver aussi vos prochains titres favoris, une possibilité de télécharger vos musiques directement sur votre ordinateur, mais surtout de pouvoir avoir une création de playlist téléchargeable depuis le site directement sur votre machine.
@@ -16,3 +18,4 @@ Une fois cela fait entrer dans le dossier melosphere `cd .\melosphere\ `
 Une fois cela fait effectuer un `npm install` cela vous installera toutes les dépendances qu'a besoin le projet, une fois cela fait lancer le site web avec la commande `npm start`.
 
 Bienvenue sur Melosphere !
+
