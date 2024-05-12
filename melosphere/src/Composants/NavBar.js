@@ -165,17 +165,17 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         ) : (
           <>
           <span
-            className="text-white mr-[1.2rem] cursor-pointer relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {userPseudo} 
-            {isHovered && (
-              <div className="relative w-full">
-                <div className="h-0.5 bg-white w-full absolute bottom-0" style={{ bottom: '-0.2rem' }}></div>
-              </div>
-            )}
-          </span>
+          className="text-white mr-[1.2rem] cursor-pointer relative hover:scale-110 transition-transform duration-200 ease-in-out"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Link to="/Profil">{userPseudo}</Link>
+          {isHovered && (
+            <div className="relative w-full">
+              <div className="h-0.5 bg-white w-full absolute bottom-0" style={{ bottom: '-0.2rem' }}></div>
+            </div>
+          )}
+        </span>
           <button onClick={handleLogout} className="text-red-500 font-bold py-[0.3rem] px-[0.5rem] rounded transform transition-transform duration-200 ease-in-out hover:scale-110">
           | Déconnexion
         </button>
@@ -227,7 +227,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             <form onSubmit={handleLoginSubmit}>
               <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>
-                <input type="email" id="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} className="bg-black border-2 border-purple-500 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-white" placeholder="Votre email" />
+                <input type="email" id="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} className="bg-black border-2 border-purple-500 rounded w-full py-2 px-4 text-white leading-tight focus:outline-none focus:border-white" placeholder="Votre email" />
               </div>
               <div className="mb-6">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">Mot de passe</label>

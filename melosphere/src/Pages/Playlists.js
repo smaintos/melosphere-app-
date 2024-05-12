@@ -9,6 +9,8 @@ const PlaylistPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [newLink, setNewLink] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   useEffect(() => {
     const pseudo = localStorage.getItem('userPseudo');
@@ -24,9 +26,16 @@ const PlaylistPage = () => {
   const handlePlaylistSubmit = async (event) => {
     event.preventDefault();
     if (!userPseudo) {
-      console.error('Le pseudo de l\'utilisateur n\'est pas défini');
+      setErrorMessage('Le pseudo de l\'utilisateur n\'est pas défini');
       return;
     }
+    
+    const existingPlaylist = playlists.find(playlist => playlist.name.toLowerCase() === newPlaylistName.toLowerCase());
+    if (existingPlaylist) {
+      setErrorMessage('La playlist que vous souhaitez créer est déjà présente');
+      return;
+    }
+
     try {
       const response = await fetch('http://192.168.214.2:3002/playlists', {
         method: 'POST',
@@ -46,8 +55,9 @@ const PlaylistPage = () => {
       setPlaylists([...playlists, { name: newPlaylistName, description: newPlaylistDescription }]);
       setNewPlaylistName('');
       setNewPlaylistDescription('');
+      window.location.reload();
     } catch (error) {
-      console.error('Erreur lors de la création de la playlist :', error);
+      setErrorMessage(`Erreur lors de la création de la playlist : ${error.message}`);
     }
   };
 
@@ -71,6 +81,7 @@ const PlaylistPage = () => {
       .then(data => {
         if (data.message === 'Lien ajouté avec succès') {
           console.log('Lien ajouté avec succès');
+          window.location.reload();
           // Effacer éventuellement le champ d'entrée ou mettre à jour l'interface utilisateur pour refléter le changement
         } else {
           console.error('Erreur lors de l\'ajout du lien');
@@ -151,20 +162,27 @@ const handleDeletePlaylist = async (playlistId) => {
            <div className="flex flex-col md:flex-row justify-between p-8 relative">
              <div className="group bg-black p-8 rounded-md shadow-2xl shadow-purple-500 w-full max-w-md flex-shrink-0 md:mr-4 mb-4 md:mb-0 h-[fit-content] md:h-full my-[6rem] sticky top-0 transform hover:-translate-y-3 transition-transform duration-200 ease-in-out hover:shadow-white border-2 border-purple-500">
                <h1 className="text-xl font-semibold mb-4 text-white">Créer une nouvelle playlist</h1>
+               {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                <form onSubmit={handlePlaylistSubmit} className="space-y-4">
                  <input
                    type="text"
                    placeholder="Nom de la playlist"
                    value={newPlaylistName}
+                   maxLength={10}
+                   pattern=".{0,10}" // Utilisez un motif pour valider jusqu'à 10 caractères
+                   title="Le nom de la playlist ne peut pas dépasser 10 caractères"
                    onChange={(e) => setNewPlaylistName(e.target.value)}
-                   className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
+                   className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white focus:shadow-white group-hover:border-white rounded-md px-4 py-2"
                  />
                  <input
                    type="text"
                    placeholder="Description de la playlist"
                    value={newPlaylistDescription}
+                   maxLength={20}
+                   pattern=".{0,20}" // Utilisez un motif pour valider jusqu'à 10 caractères
+                   title="La description de la playlist ne peut pas dépasser 20 caractères"
                    onChange={(e) => setNewPlaylistDescription(e.target.value)}
-                   className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
+                   className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white focus:shadow-white group-hover:border-white rounded-md px-4 py-2"
                  />
                  <button type="submit" className="block w-full bg-black text-white font-bold py-2 px-4 rounded-md border border-transparent hover:border-white">
                    Créer une nouvelle playlist
@@ -179,7 +197,7 @@ const handleDeletePlaylist = async (playlistId) => {
           {/* Ajout du bouton Télécharger à droite du titre */}
           <button
                 onClick={() => handleDownload(playlist.id)}
-                className="bg-transparent border-2 border-purple-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-purple-800 "
+                className="bg-transparent py-1 px-2 rounded text-2xl hover:scale-150 border-2 border-purple-500 hover:bg-purple-800 transform transition-transform duration-200 ease-in-out mr-2"
               >
                 ☂️
               </button>
@@ -187,7 +205,7 @@ const handleDeletePlaylist = async (playlistId) => {
             {/* Ajout du bouton Télécharger à droite du titre */}
             <button
                 onClick={() => handleDeletePlaylist(playlist.id)}
-                className="bg-transparent border-2 border-red-500 font-bold py-1 px-2 rounded text-2xl hover:bg-transparent hover:bg-red-800 mr-2"
+                className="bg-transparent py-1 px-2 rounded text-2xl hover:scale-150 border-2 border-red-500 hover:bg-red-800 transform transition-transform duration-200 ease-in-out mr-2"
               >
                 🗑️
               </button>
@@ -210,7 +228,7 @@ const handleDeletePlaylist = async (playlistId) => {
                 onChange={(e) => setNewLink({...newLink, [playlist.id]: e.target.value })}
                 pattern="https?://.+"
                 title="Please enter a valid URL"
-                className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
+                className="block w-full border-2 border-purple-500 shadow-md shadow-purple-500 focus:shadow-white group-hover:shadow-white bg-black text-white focus:outline-none focus:border-white group-hover:border-white rounded-md px-4 py-2"
               />
               <button
                 onClick={() => handleAddLink(playlist.id)}

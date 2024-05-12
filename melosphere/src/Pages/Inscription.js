@@ -33,30 +33,30 @@ const Inscription = () => {
  };
 
  return (
-    <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
-      <div className="relative bg-gray-800 px-8 py-6 w-96">
-        <div className="flex justify-end">
-          <button onClick={() => window.location.href = '/'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
+  <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
+    <div className="bg-black rounded-lg shadow-2xl shadow-white p-8 w-full lg:max-w-xl flex flex-col items-center transform transition-transform duration-200 ease-in-out hover:-translate-y-3 hover:shadow-purple-500 border-2 border-white hover:border-purple-700">
+      <div className="text-purple-400 text-xl font-semibold mb-4">Inscription</div>
+      <form onSubmit={handleSignUpSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">Pseudo</label>
+          <input type="text" id="username" value={signUpUsername} onChange={(e) => setSignUpUsername(e.target.value)} className="bg-black border-2 border-purple-500 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-white" placeholder="Votre pseudo" />
         </div>
-        <div className="text-purple-300 text-xl font-semibold mb-4 ml-[7rem]">Inscription</div>
-        <form onSubmit={handleSignUpSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">Pseudo</label>
-            <input type="text" id="username" value={signUpUsername} onChange={(e) => setSignUpUsername(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre pseudo" />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>
-            <input type="email" id="email" value={signUpEmail} onChange={(e) => setSignUpEmail(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre email" />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">Mot de passe</label>
-            <input type="password" id="password" value={signUpPassword} onChange={(e) => setSignUpPassword(e.target.value)} className="shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline" placeholder="Votre mot de passe" />
-          </div>
-          <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mx-auto">S'inscrire</button>
-        </form>
+        <div className="mb-4">
+          <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">Email</label>
+          <input type="email" id="email" value={signUpEmail} onChange={(e) => setSignUpEmail(e.target.value)} className="bg-black border-2 border-purple-500 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-white" placeholder="Votre email" />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">Mot de passe</label>
+          <input type="password" id="password" value={signUpPassword} onChange={(e) => setSignUpPassword(e.target.value)} className="bg-black border-2 border-purple-500 rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-white" placeholder="Votre mot de passe" />
+        </div>
+        <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block mx-auto">S'inscrire</button>
+      </form>
+      <div className="flex justify-end mt-3">
+       <button onClick={() => window.location.href = '/'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Fermer</button>
       </div>
     </div>
- );
+  </div>
+);
 };
 
 export default Inscription;

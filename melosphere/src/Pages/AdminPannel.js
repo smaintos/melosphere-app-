@@ -7,6 +7,9 @@ const AdminPannel = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
     const [newPseudo, setNewPseudo] = useState('');
+    const [newEmail, setNewEmail] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [editingNewPseudo, setEditingNewPseudo] = useState('');
 
     useEffect(() => {
         const getUsers = async () => {
@@ -33,7 +36,7 @@ const AdminPannel = () => {
             if (!response.ok) {
                 throw new Error('Erreur lors de la suppression de l\'utilisateur');
             }
-            const updatedUsers = users.filter(user => user.pseudo!== pseudoOrEmail && user.email!== pseudoOrEmail);
+            const updatedUsers = users.filter(user => user.pseudo !== pseudoOrEmail && user.email !== pseudoOrEmail);
             setUsers(updatedUsers);
         } catch (error) {
             console.error('Erreur :', error);
@@ -47,25 +50,38 @@ const AdminPannel = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ newPseudo }),
+                body: JSON.stringify({ newPseudo: editingNewPseudo }),
             });
             if (!response.ok) {
                 throw new Error('Erreur lors de la mise à jour du pseudo de l\'utilisateur');
             }
-            const updatedUsers = users.map(user => user.pseudo === pseudo? {...user, pseudo: newPseudo} : user);
+            const updatedUsers = users.map(user => user.pseudo === pseudo ? { ...user, pseudo: editingNewPseudo } : user);
             setUsers(updatedUsers);
+            setEditingUser(null);
+            setEditingNewPseudo('');
         } catch (error) {
             console.error('Erreur :', error);
         }
     };
 
     const handleInputChange = (event) => {
-        setNewPseudo(event.target.value);
+        const { name, value } = event.target;
+        if (name === 'newPseudo') {
+            setNewPseudo(value);
+        } else if (name === 'newEmail') {
+            setNewEmail(value);
+        } else if (name === 'newPassword') {
+            setNewPassword(value);
+        }
+    };
+
+    const handleEditInputChange = (event) => {
+        setEditingNewPseudo(event.target.value);
     };
 
     const handleEditClick = (pseudo) => {
         setEditingUser(pseudo);
-        setNewPseudo(pseudo);
+        setEditingNewPseudo(pseudo);
     };
 
     const handleUpdateSubmit = (event) => {
@@ -73,12 +89,39 @@ const AdminPannel = () => {
         updateUserPseudo(editingUser);
     };
 
+    const handleAddUserSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('http://192.168.214.2:3002/inscription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pseudo: newPseudo, email: newEmail, mot_de_passe: newPassword }),
+            });
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'ajout de l\'utilisateur');
+            }
+            const userData = await response.json();
+            setUsers([userData, ...users]);
+            setNewPseudo('');
+            setNewEmail('');
+            setNewPassword('');
+    
+            // Rafraîchir la page après l'ajout de l'utilisateur
+            window.location.reload();
+        } catch (error) {
+            console.error('Erreur :', error);
+        }
+    };
+    
+
     return (
         <div>
             <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
             <div className="container mx-auto px-4 mt-32">
-                <h2 className="text-2xl font-bold mb-4">Melosphere Admin Pannel</h2>
+                <h2 className="text-2xl font-bold mb-4">Melosphere Admin Panel</h2>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr>
@@ -89,12 +132,49 @@ const AdminPannel = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <form onSubmit={handleAddUserSubmit} className="flex space-x-2">
+                                    <input
+                                        type="text"
+                                        name="newPseudo"
+                                        className="border-2 border-black p-1"
+                                        value={newPseudo}
+                                        onChange={handleInputChange}
+                                        placeholder="Nouveau pseudo"
+                                        required
+                                    />
+                                    <input
+                                        type="email"
+                                        name="newEmail"
+                                        className="border-2 border-black p-1"
+                                        value={newEmail}
+                                        onChange={handleInputChange}
+                                        placeholder="Nouvel email"
+                                        required
+                                    />
+                                    <input
+                                        type="password"
+                                        name="newPassword"
+                                        className="border-2 border-black p-1"
+                                        value={newPassword}
+                                        onChange={handleInputChange}
+                                        placeholder="Nouveau mot de passe"
+                                        required
+                                    />
+                                    <button className="ml-[3rem]" type="submit">Ajouter un utilisateur</button>
+                                </form>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         {users.map((user, index) => (
                             <tr key={index}>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {editingUser === user.pseudo? (
+                                    {editingUser === user.pseudo ? (
                                         <div className="flex justify-between items-center">
-                                            <input type="text" value={newPseudo} onChange={handleInputChange} placeholder="Nouveau pseudo" />
+                                            <input type="text" value={editingNewPseudo} onChange={handleEditInputChange} placeholder="Nouveau pseudo" />
                                         </div>
                                     ) : (
                                         <span>{user.pseudo}</span>

@@ -44,7 +44,9 @@ const [isLoggedIn] = useState(initializeIsLoggedIn);
           } />
           <Route path="/inscription" element={<Inscription />} />
           <Route path="/AdminPannel" element={<AdminPannel />} />
-          <Route path="/melozone" element={<Room />} />
+          <Route path="/melozone" element={
+            isLoggedIn ? <Room /> : <Navigate replace to="/inscription" />
+          } />
 
         </Routes>
       </BrowserRouter>

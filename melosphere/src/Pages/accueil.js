@@ -28,7 +28,7 @@ function Accueil() {
   const backgroundOffsetY = (mousePos.y / window.innerHeight - 0.75) * 100;
 
   return (
-    <div>
+    <div style={{ overflow: 'hidden' }}> {/* Ajout de la propriété overflow: 'hidden' ici */}
       <header>
         <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         
@@ -47,7 +47,7 @@ function Accueil() {
               transition: 'background-position 0.1s',
             }}
           >
-            <div className="top-5 flex flex-col justify-center items-center h-full relative">
+            <div className="flex flex-col justify-center items-center h-full relative ">
               <img
                 src={image02}
                 alt="titre"

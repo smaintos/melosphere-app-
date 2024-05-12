@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import YouTube from 'react-youtube';
 import VideoSuggestions from './VideoSuggestions';
+import logo from './logomelosphere.png';
 
 
 const DownloadAudio = () => {
@@ -121,29 +122,34 @@ const DownloadAudio = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center mb-6 mt-3"> {/* Ajoutez la marge supérieure ici */}
-        <button
-          onClick={handleSearch}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Rechercher
-        </button>
-        <input
-          type="text"
-          placeholder="URL"
-          value={videoUrl}
-          onChange={(e) => setVideoUrl(e.target.value)}
-          className="w-[34rem] border-b border-l border-t border-purple-300 p-2 focus:outline-none"
-        />
-        <button
-          onClick={handleDownload}
-          className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-r-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Télécharger
-        </button>
+      <button
+      onClick={handleSearch}
+      className="bg-black text-white font-bold h-[2.5rem] px-4 rounded-l-md border-2 shadow-md shadow-purple-500 border-purple-600 shadow-md shadow-purple-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
+    >
+      <img
+        src={logo}
+        alt="Logomelosphere"
+        className="h-6 w-auto"
+      />
+    </button>
+          <input
+            type="text"
+            placeholder="URL"
+            value={videoUrl}
+            onChange={(e) => setVideoUrl(e.target.value)}
+            className="w-[34rem] h-[2.50rem] bg-black text-white border-2 border-purple-600 p-2 shadow-md shadow-purple-500 "
+            style={{ zIndex: "1" }}
+          />
+          <button
+            onClick={handleDownload}
+            className="bg-black text-white font-bold h-[2.5rem] px-4 rounded-r-md border-2 shadow-md shadow-purple-500 border-purple-600 shadow-md shadow-purple-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
+          >
+            Télécharger
+          </button>
       </div>
 
       {youtubeVideoId && (
-        <div className="flex justify-center mb-4 w-full h-full">
+        <div className="flex justify-center mb-4 border-4 border-purple-800 shadow-lg shadow-purple-500 hover:border-white transform transition-transform duration-200 ease-in-out hover:scale-110">
           <YouTube videoId={youtubeVideoId} />
         </div>
       )}
