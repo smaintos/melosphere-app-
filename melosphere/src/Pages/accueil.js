@@ -28,30 +28,24 @@ function Accueil() {
   const backgroundOffsetY = (mousePos.y / window.innerHeight - 0.75) * 100;
 
   return (
-    <div style={{ overflow: 'hidden' }}> {/* Ajout de la propriété overflow: 'hidden' ici */}
+    <div style={{ overflow: 'hidden' }}> 
       <header>
         <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-        
-        {/* Conteneur général avec fond noir en bas */}
         <div className="relative">
-          {/* La division noire sous le fond */}
-          <div className="absolute inset-0 bg-black z-0"></div> {/* Couche noire sous l'image de fond */}
-          
-          {/* Conteneur de l'image de fond avec position relative pour permettre le mouvement */}
-          <div
-            className="relative bg-cover bg-center bg-no-repeat h-screen z-10" // L'image de fond est au-dessus de la division noire
-            style={{
-              backgroundImage: `url(${image})`,
-              backgroundPosition: `calc(50% + ${backgroundOffsetX}px) calc(50% + ${backgroundOffsetY}px)`,
-              backgroundSize: '115rem 110rem', // Remplacez 800px par la largeur souhaitée et 600px par la hauteur souhaitée
-              transition: 'background-position 0.1s',
-            }}
-          >
+          <div className="absolute inset-0 bg-black z-0"></div> 
+          <div className="relative bg-cover bg-center bg-no-repeat h-screen z-10" 
+              style={{
+                backgroundImage: `url(${image})`,
+                backgroundPosition: `calc(50% + ${backgroundOffsetX}px) calc(50% + ${backgroundOffsetY}px)`,
+                backgroundSize: '115rem 110rem', 
+                transition: 'background-position 0.1s',
+             }}
+           >
             <div className="flex flex-col justify-center items-center h-full relative ">
               <img
                 src={image02}
                 alt="titre"
-                className={`relative top-0.5/3 w-2/4 transform -translate-x-0.5/2 left-0.5/2 z-10 ${searchActive ? '-top-8' : ''}`} // Centrage horizontal
+                className={`relative top-0.5/3 w-2/4 transform -translate-x-0.5/2 left-0.5/2 z-10 ${searchActive ? '-top-8' : ''}`} 
               />
               <SearchBar onSearch={() => setSearchActive(true)} />
             </div>

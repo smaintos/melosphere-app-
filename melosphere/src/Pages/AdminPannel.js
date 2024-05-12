@@ -107,8 +107,6 @@ const AdminPannel = () => {
             setNewPseudo('');
             setNewEmail('');
             setNewPassword('');
-    
-            // Rafraîchir la page après l'ajout de l'utilisateur
             window.location.reload();
         } catch (error) {
             console.error('Erreur :', error);

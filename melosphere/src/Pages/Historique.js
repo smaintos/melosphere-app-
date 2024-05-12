@@ -25,14 +25,14 @@ const Historique = () => {
   <div>
       <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
-      <div className="flex flex-col justify-center items-center bg-zinc-950 text-white min-h-screen py-[3rem]"> {/* Fond noir, texte blanc */}
-        <h2 className="text-center text-2xl font-bold mb-12 mt-10">Historique</h2> {/* Titre centré */}
-        <div className="w-full max-w-xl border border-white rounded-md p-4"> {/* Div avec des bords blancs */}
-          <h3 className="text-xl font-bold mb-6">Historique des actions :</h3> {/* Sous-titre */}
+      <div className="flex flex-col mt-[2rem] items-center bg-zinc-950 text-white min-h-screen py-[3rem]"> 
+        <h2 className="text-center text-2xl font-bold mb-12 mt-10">Historique</h2> 
+        <div className="w-[50rem] border border-purple-800 rounded-md p-4 shadow-2xl shadow-purple-800 "> 
+          <h3 className="text-xl font-bold mb-6 underline">Historique des actions :</h3> 
           {historique.map((item, index) => (
-            <div key={index} className="mb-6 relative"> {/* Div pour chaque élément de l'historique */}
-              <p className="mb-4">{item.url} - {item.action} le {new Date(item.date).toLocaleDateString()} - Heure {new Date(item.date).toLocaleTimeString()}</p> {/* Affichage des informations */}
-              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-purple-700"></div> {/* Div en forme de trait violet */}
+            <div key={index} className="mb-6 relative"> 
+              <p className="mb-4">{item.url} - {item.action} le {new Date(item.date).toLocaleDateString()} - Heure {new Date(item.date).toLocaleTimeString()}</p> 
+              <div className="absolute left-0 bottom-0 w-full h-0.5 bg-purple-700"></div> 
             </div>
           ))}
         </div>

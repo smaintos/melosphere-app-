@@ -19,7 +19,7 @@ const Inscription = () => {
 
     if (!response.ok) {
       const data = await response.json();
-      setSignupErrorMessage(data.message); // Utilisation de setSignupErrorMessage pour mettre à jour le message d'erreur
+      setSignupErrorMessage(data.message); 
       return;
     }
 

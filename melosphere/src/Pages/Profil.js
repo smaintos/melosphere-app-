@@ -8,7 +8,7 @@ const Profil = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedEmail, setEditedEmail] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // Nouvel état pour le message de succès
+  const [successMessage, setSuccessMessage] = useState(''); 
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -51,7 +51,7 @@ const Profil = () => {
 
       fetchUserData(userData.pseudo);
       setIsEditing(false);
-      setSuccessMessage('Adresse e-mail modifiée avec succès'); // Mettre à jour le message de succès
+      setSuccessMessage('Adresse e-mail modifiée avec succès'); 
     } catch (error) {
       console.error('Erreur lors de la modification de l\'email :', error);
     }
@@ -69,8 +69,6 @@ const Profil = () => {
       <div className="flex flex-col justify-center items-center bg-zinc-950 text-white min-h-screen py-[3rem]">
         <div className="bg-black rounded-lg shadow-2xl shadow-purple-500 p-8 w-full lg:max-w-xl flex flex-col items-center transform transition-transform duration-200 ease-in-out hover:-translate-y-3 hover:shadow-white border-2 border-purple-700">
           <h1 className="text-3xl font-semibold text-center mb-8">Profil de {userData.pseudo}</h1>
-  
-          {/* Conteneur pour l'email et les boutons de modification/enregistrement */}
           <div className="flex items-center justify-between w-full mb-4">
             {isEditing? (
               <input
@@ -100,8 +98,6 @@ const Profil = () => {
               </button>
             )}
           </div>
-  
-          {/* Afficher le message de succès */}
           {successMessage && (
             <div className="text-green-500 text-center mt-4">{successMessage}</div>
           )}

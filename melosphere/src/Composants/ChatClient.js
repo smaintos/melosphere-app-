@@ -1,8 +1,6 @@
-// components/ChatClient.js
-
 import React from 'react';
 
-const WEBSOCKET_URL = 'ws://192.168.214.2:8765'; // URL du serveur WebSocket
+const WEBSOCKET_URL = 'ws://192.168.214.2:8765'; 
 
 class ChatClient extends React.Component {
     constructor() {

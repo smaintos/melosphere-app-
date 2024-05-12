@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import Sidebar from './SideBar'; // Assurez-vous d'importer le composant Sidebar
+import Sidebar from './SideBar'; 
 import { Link } from 'react-router-dom';
 import logo from './logomelosphere.png';
 
@@ -17,9 +17,8 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
  const [loginPassword, setLoginPassword] = useState('');
  const [isHovered, setIsHovered] = useState(false);
 
-   // State pour stocker les messages d'erreur d'inscription
+
    const [signupErrorMessage, setSignupErrorMessage] = useState('');
-    // State pour stocker les messages d'erreur d'inscription
    const [loginErrorMessage, setLoginErrorMessage] = useState('');
  
  useEffect(() => {
@@ -53,7 +52,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       if (!response.ok) {
         const data = await response.json();
         setSignupErrorMessage(data.message); // Stocker le message d'erreur
-        return; // Arrêter la fonction ici pour éviter d'afficher la modal de succès
+        return; 
       }
 
       const data = await response.json();
@@ -80,15 +79,15 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
     if (!response.ok) {
       const data = await response.json();
-      setLoginErrorMessage(data.message); // Stocker le message d'erreur
-      return; // Arrêter la fonction ici pour éviter d'afficher la modal de succès
+      setLoginErrorMessage(data.message); 
+      return; 
     }
 
     const data = await response.json();
     console.log('Connexion réussie :', data);
     localStorage.setItem('isLoggedIn', true);
     localStorage.setItem('userPseudo', data.pseudo);
-    localStorage.setItem('userId', data.userId); // Stocker l'ID de l'utilisateur
+    localStorage.setItem('userId', data.userId);
     setIsLoggedIn(true);
     setUserPseudo(data.pseudo);
     alert('Connexion réussie');
@@ -126,7 +125,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           height="24" 
           viewBox="0 0 256 256" 
           fill="#bd6fbe" 
-          className="text-white hover:text-purple-300 ml-[1.1rem]"
+          className="text-white hover:text-purple-300 ml-[1.1rem] transform transition-transform duration-400 ease-in-out hover:scale-150 "
           onClick={toggleSidebar} 
         >
           <g fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{ mixBlendMode: 'normal' }}>
@@ -136,26 +135,23 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </g>
         </svg>
         <div className="flex items-center space-x-4">
-          {/* Ajout du bouton "Crée une playlist" qui redirige vers /playlists */}
           <Link 
   to="/playlists" 
   className="text-white px-3 py-2 rounded-md text-sm font-medium mr-[0.9rem] transform transition-transform duration-200 ease-in-out hover:scale-110"
 >
   Crée une playlist +
 </Link>
-
 <style jsx>{`
  .zoom-on-hover:hover {
     transform: scale(1.2);
     transition: transform 0.2s ease-in-out;
   }
 `}</style>
-          {/* Votre code existant ici... */}
         </div>
       </div>
       <div className="flex items-center justify-center flex-1 "> 
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo Melosphere" className="h-8" />
+            <img src={logo} alt="Logo Melosphere" className="h-8 transform transition-transform duration-200 ease-in-out hover:scale-[1.8]" />
           </Link>
         </div>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -186,7 +182,6 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <button onClick={handleLogout} className="text-red-500 font-bold py-[0.3rem] px-[0.5rem] rounded transform transition-transform duration-200 ease-in-out hover:scale-110">
           | Déconnexion
         </button>
-                {/* Ajout du bouton "Admin" */}
                 {(userPseudo === "gregouzx" || userPseudo === "smaintos") && (
               <Link 
                 to="/AdminPannel" 
@@ -204,7 +199,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div className="fixed z-10 inset-0 flex items-center justify-center overflow-auto bg-black bg-opacity-85">
           <div className="bg-black rounded-lg shadow-2xl shadow-white p-8 w-full lg:max-w-xl flex flex-col items-center transform transition-transform duration-200 ease-in-out hover:-translate-y-3 hover:shadow-purple-500 border-2 border-white hover:border-purple-700">
             <div className="text-purple-400 text-xl font-semibold mb-4">Inscription</div>
-            {signupErrorMessage && ( // Afficher le message d'erreur s'il est défini
+            {signupErrorMessage && ( 
         <div className="text-red-500 mb-4">{signupErrorMessage}</div>
       )}
             <form onSubmit={handleSignUpSubmit}>
@@ -234,7 +229,7 @@ const NavBar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <div className="bg-black rounded-lg shadow-2xl shadow-white p-8 w-full lg:max-w-xl flex flex-col items-center transform transition-transform duration-200 ease-in-out hover:-translate-y-3 hover:shadow-purple-500 border-2 border-white hover:border-purple-700"> {/* Utilisation des mêmes styles que la carte de profil */}
            
             <div className="text-purple-300 text-xl font-semibold mb-4">Connexion</div>
-            {loginErrorMessage && ( // Afficher le message d'erreur s'il est défini
+            {loginErrorMessage && ( 
         <div className="text-red-500 mb-4">{loginErrorMessage}</div>
       )}
             <form onSubmit={handleLoginSubmit}>

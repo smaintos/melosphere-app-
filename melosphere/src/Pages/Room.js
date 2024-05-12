@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import ChatClient from '../Composants/ChatClient'; // Importez votre client WebSocket
+import ChatClient from '../Composants/ChatClient'; 
 import NavBar from '../Composants/NavBar';
 import Sidebar from '../Composants/SideBar';
 
 const Room = () => {
     const [chatClient, setChatClient] = useState(null);
-    const [messages, setMessages] = useState([]); // État pour stocker les messages
-    const [username, setUsername] = useState(''); // État pour stocker le pseudo de l'utilisateur
-    const [userMessage, setUserMessage] = useState(''); // État pour stocker le message de l'utilisateur
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false); // État pour gérer l'ouverture de la Sidebar
+    const [messages, setMessages] = useState([]); 
+    const [username, setUsername] = useState(''); 
+    const [userMessage, setUserMessage] = useState(''); 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
 
     useEffect(() => {
         const client = new ChatClient();
         setChatClient(client);
 
-        // Ajoutez un écouteur pour les messages reçus
         client.state.websocket.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
             const message = { username: data.username, message: data.message, color: data.color };
-            setMessages((prevMessages) => [...prevMessages, message]); // Mettez à jour l'état avec le nouveau message
+            setMessages((prevMessages) => [...prevMessages, message]); 
         });
 
         return () => {
@@ -45,8 +44,8 @@ const Room = () => {
 
     return (
         <div>
-            <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> {/* Intégration du NavBar */}
-            <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> {/* Intégration de la Sidebar */}
+            <NavBar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} /> 
+            <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} /> 
             <div className="flex justify-center min-h-screen bg-zinc-950">
                 <div className="flex w-full max-w-6xl">
                     <div className="w-[930px] h-[680px] bg-black shadow-xl rounded-l-lg border border-purple-500 mt-[7.5rem] ml-[8rem] shadow-xl shadow-purple-500 transform hover:-translate-y-7 transition-transform duration-200 ease-in-out">

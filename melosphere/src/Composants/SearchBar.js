@@ -31,7 +31,7 @@ const DownloadAudio = () => {
         setSuggestedVideos(reducedVideos);
       } catch (error) {
         console.error('Erreur lors de la récupération des vidéos recommandées:', error.message);
-        setError(error.message); // Mettre à jour l'état d'erreur
+        setError(error.message); 
       }
     },
     []
@@ -45,8 +45,6 @@ const DownloadAudio = () => {
 
   const handleVideoClick = (videoId) => {
     setYoutubeVideoId(videoId);
-
-    // Mettre à jour l'URL dans la barre de recherche
     setVideoUrl(`https://www.youtube.com/watch?v=${videoId}`);
   };
 
@@ -85,7 +83,7 @@ const DownloadAudio = () => {
       }
     } catch (error) {
       console.error('Error downloading MP3:', error);
-      setError(error.message); // Mettre à jour l'état d'erreur
+      setError(error.message); 
     }
  };
 
@@ -93,14 +91,14 @@ const DownloadAudio = () => {
   const videoId = extractVideoId(videoUrl);
   if (!videoId) {
     console.error('L\'URL de la vidéo n\'est pas valide ou ne contient pas d\'ID de vidéo.');
-    setError('Uniquement une url youtube.'); // Mettre à jour l'état d'erreur
+    setError('Uniquement une url youtube.');
 
     return;
   }
 
   setYoutubeVideoId(videoId);
 
-  // Ajout à l'historique
+
   try {
     const userId = localStorage.getItem('userId');
     if (userId) {
@@ -114,7 +112,7 @@ const DownloadAudio = () => {
     }
   } catch (error) {
     console.error('Erreur lors de l\'ajout à l\'historique:', error);
-    setError('Erreur lors de l\'ajout à l\'historique: ' + error.message); // Mettre à jour l'état d'erreur
+    setError('Erreur lors de l\'ajout à l\'historique: ' + error.message); 
   }
 };
 
@@ -125,7 +123,7 @@ const DownloadAudio = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center mb-6 mt-3"> {/* Ajoutez la marge supérieure ici */}
+      <div className="flex items-center mb-6 mt-3"> 
       <button
       onClick={handleSearch}
       className="bg-black text-white font-bold h-[2.5rem] px-4 rounded-l-md border-2 shadow-md shadow-purple-500 border-purple-600 shadow-md shadow-purple-500 transform transition-transform duration-200 ease-in-out hover:scale-110"
@@ -161,7 +159,7 @@ const DownloadAudio = () => {
       )}
 
       {suggestedVideos && suggestedVideos.length > 0 && (
-        <div className="flex flex-wrap justify-center"> {/* Correction de la classe de justification */}
+        <div className="flex flex-wrap justify-center"> 
           <VideoSuggestions
             suggestedVideos={suggestedVideos}
             onVideoClick={handleVideoClick}
@@ -169,7 +167,7 @@ const DownloadAudio = () => {
         </div>
       )}
       {error && (
-      <div className="text-red-500 mb-4">{error}</div> // Affichage du message d'erreur en rouge
+      <div className="text-red-500 mb-4">{error}</div> 
       )}
     </div>
   );
