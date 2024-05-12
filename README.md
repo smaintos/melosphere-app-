@@ -2,6 +2,8 @@
 
 ( Pour que le site web puisse communiquer avec nos serveurs il faut avoir un vpn avec un profil et des accès bien précis. )
 
+( Un bug surviens parfois lors du clonage du repo , quand vous allez essayer de lancer melosphere il peut y avoir une erreur sur le fichier Accueil.js , il suffit de modifier le nom du fichier et d'ajoute un " A " majuscule à la place de ma minuscule. )
+
 Nous avons l'honneur de vous annoncer la fin de la réalisation du projet DEV-B2 Melosphere , qui est un site web pour les personnes qui aiment la musique et aime partager la musique.
 
 Melosphere est un site web ou vous pourrez rechercher vos titres préférés grâce à une URL YouTube et trouver aussi vos prochains titres favoris, une possibilité de télécharger vos musiques directement sur votre ordinateur, mais surtout de pouvoir avoir une création de playlist téléchargeable depuis le site directement sur votre machine.
