@@ -98,20 +98,26 @@ app.post('/inscription', async (req, res) => {
 
 app.post('/connexion', (req, res) => {
   const { email, mot_de_passe } = req.body;
- 
-  const sql = 'SELECT * FROM users WHERE email = ? AND mot_de_passe = ?';
- 
-  db.query(sql, [email, mot_de_passe], (err, result) => {
-     if (err) {
-       console.error(err);
-       res.status(500).json({ message: 'Erreur lors de la connexion' });
-     } else if (result.length > 0) {
-       res.status(200).json({ message: 'Connexion réussie', userId: result[0].id, pseudo: result[0].pseudo });
-     } else {
-       res.status(401).json({ message: 'Email ou mot de passe incorrect' });
-     }
+
+  const sql = 'SELECT * FROM users WHERE email = ?';
+
+  db.query(sql, [email], async (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erreur lors de la connexion' });
+    } else if (result.length > 0) {
+      const user = result[0];
+      const match = await bcrypt.compare(mot_de_passe, user.mot_de_passe);
+      if (match) {
+        res.status(200).json({ message: 'Connexion réussie', userId: user.id, pseudo: user.pseudo });
+      } else {
+        res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+      }
+    } else {
+      res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
   });
- });
+});
  
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
