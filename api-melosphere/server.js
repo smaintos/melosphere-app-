@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
@@ -21,10 +23,10 @@ if (!fs.existsSync(PLAYLISTS_DOWNLOAD_DIR)) {
 }
 
 const db = mysql.createConnection({
- host: '192.168.214.2',
- user: 'william',
- password: 'CrystalMwoz1!',
- database: 'melosphere_database'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 db.connect((err) => {

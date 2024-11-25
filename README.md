@@ -21,3 +21,54 @@ Une fois cela fait effectuer un `npm install` cela vous installera toutes les d�
 
 Bienvenue sur Melosphere !
 
+
+```
+melosphere-app-
+├─ api-melosphere
+│  └─ server.js
+├─ melosphere
+│  ├─ docker-compose.yml
+│  ├─ Dockerfile
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ postcss.config.js
+│  ├─ public
+│  │  ├─ favicon.ico
+│  │  ├─ index.html
+│  │  ├─ logo192.png
+│  │  ├─ logo512.png
+│  │  ├─ manifest.json
+│  │  └─ robots.txt
+│  ├─ README.md
+│  ├─ src
+│  │  ├─ App.css
+│  │  ├─ App.js
+│  │  ├─ App.test.js
+│  │  ├─ Composants
+│  │  │  ├─ ChatClient.js
+│  │  │  ├─ image01.png
+│  │  │  ├─ image02.png
+│  │  │  ├─ logomelosphere.png
+│  │  │  ├─ NavBar.js
+│  │  │  ├─ SearchBar.js
+│  │  │  ├─ SideBar.js
+│  │  │  └─ VideoSuggestions.js
+│  │  ├─ index.css
+│  │  ├─ index.js
+│  │  ├─ logo.svg
+│  │  ├─ Pages
+│  │  │  ├─ Accueil.js
+│  │  │  ├─ AdminPannel.js
+│  │  │  ├─ Historique.js
+│  │  │  ├─ Inscription.js
+│  │  │  ├─ Playlists.js
+│  │  │  ├─ Profil.js
+│  │  │  └─ Room.js
+│  │  ├─ reportWebVitals.js
+│  │  └─ setupTests.js
+│  └─ tailwind.config.js
+├─ README.md
+└─ room-melosphere
+   └─ server-chat.py
+
+```
